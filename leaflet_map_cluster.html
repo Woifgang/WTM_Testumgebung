@@ -1,0 +1,94 @@
+<html>
+    <head>
+        <title>Leaflet Map Cluster</title>
+        <!-- Leaflet / Mapbox -->
+         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css"
+                   integrity="sha512-M2wvCLH6DSRazYeZRIm1JnYyh22purTM+FDB5CsyxtQJYeKq83arPe5wgbNmcFXGqiSH2XR8dT/fJISVA1r/zQ=="
+                   crossorigin=""/>
+         <script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"
+                   integrity="sha512-lInM/apFSqyy1o6s89K4iQUKg6ppXEgsVxT35HbzUupEVRh2Eu9Wdl4tHj7dZO0s1uvplcYGmt3498TtHq+log=="
+                   crossorigin=""></script>
+        <!-- Marker Cluster -->
+        <link rel="stylesheet" href="css/MarkerCluster.css" />
+        <link rel="stylesheet" href="css/MarkerCluster.Default.css" />
+        <script src="js/leaflet.markercluster-src.js"></script>
+        <!-- Omnivore GPX einbinden 
+        <script src='//api.tiles.mapbox.com/mapbox.js/plugins/leaflet-omnivore/v0.3.1/leaflet-omnivore.min.js'></script> -->
+        <script src="http://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-omnivore/v0.3.1/leaflet-omnivore.min.js"></script>
+        <!-- Jquery -->
+        <script src="js/jquery-3.2.1.min.js"></script>
+        
+        <style>
+        
+            #mapid{
+                height: 580px;
+            }
+            
+        </style>
+        
+    </head>
+    <body>
+        
+        <div id="mapid"></div>
+        <p></p>
+        <button id="zeigen"> gpx1 </button>
+        <button id="zeigen2"> gpx2 </button>
+        <button id="verstecken">  hide</button>
+        
+        <script>
+            // Zentrierter Punkt Lam
+            var mymap = L.map('mapid').setView([49.197, 13.050], 10);
+            // Karte einbinden
+            L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+                attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
+                maxZoom: 18,
+                id: 'mapbox.streets',
+                accessToken: 'pk.eyJ1Ijoid29pZmdhbmciLCJhIjoiY2lqdmhxZXBkMDc2Znc4bTNncWxkMGM0YiJ9.p8Kxga4m-9kvzFuNNF7Gww'
+            }).addTo(mymap);
+            // Cluster
+            var markers = L.markerClusterGroup();
+            var markers1 = L.markerClusterGroup();
+            
+            markers.addLayer(L.marker([49.197, 13.050]));
+            markers1.addLayer(L.marker([49.297, 13.050]));
+            markers.addLayer(L.marker([49.397, 13.050]));
+            mymap.addLayer(markers);
+            mymap.addLayer(markers1);
+            
+            
+            
+            var gpxEins = './gpx/Lam-Heugstatt-KleinerArbersee-Lam.gpx';
+            var gpxZwei = './gpx/Lam-Kollmstein-Ottenzell-Lam.gpx';
+            
+            function gpxShow(gpxDatei){
+                omnivore.gpx(gpxDatei).addTo(mymap);
+            };
+            
+            // billig lösung -> einfach seite neu laden...
+            function gpxHide(){
+                //omnivore.gpx('gpx/Lam-Heugstatt-Kleiner Arbersee-Lam.gpx').removeTo(mymap);
+                location.reload();
+            };
+            
+            // Marker Popup
+            markers.bindPopup("<b>Hello world!</b><br>I am a popup.");
+            markers1.bindPopup($('<button>GPX1</button>').click(function() {gpxShow(gpxEins)})[0]);
+            
+            // Omnivore GPX einbinden
+            //omnivore.gpx('gpx/Lam-Heugstatt-Kleiner Arbersee-Lam.gpx').addTo(mymap);
+            
+            //var omnivore = L.omnivore.gpx('gpx/Lam-Heugstatt-Kleiner Arbersee-Lam.gpx');
+            
+            document.getElementById("zeigen").onclick = function(){gpxShow(gpxEins)};
+            document.getElementById("zeigen2").onclick = function(){gpxShow(gpxZwei)};
+            document.getElementById("verstecken").onclick = function(){gpxHide()};
+            
+        
+        </script>
+    
+    </body>    
+
+
+
+
+</html>

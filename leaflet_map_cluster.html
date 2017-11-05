@@ -45,18 +45,46 @@
                 id: 'mapbox.streets',
                 accessToken: 'pk.eyJ1Ijoid29pZmdhbmciLCJhIjoiY2lqdmhxZXBkMDc2Znc4bTNncWxkMGM0YiJ9.p8Kxga4m-9kvzFuNNF7Gww'
             }).addTo(mymap);
+            
+            // Marker Array
+            var markerArray = [
+                [13.050, 49.190, "marker 0 <br><button id='0'>test</button>"],
+                [13.050, 49.290, "marker 1 <br><button id='1'>test</button>"],
+                [13.050, 49.390, "marker 2 <br><button id='2'>test</button>"],
+                
+            ];
+            
+            for(var i=0; i<markerArray.length; i++){
+                var lon = markerArray[i][0];
+                var lat = markerArray[i][1];
+                var popupText = markerArray[i][2];
+                
+
+                 var markerLocation = new L.LatLng(lat, lon);
+                 var marker = new L.Marker(markerLocation);
+                 mymap.addLayer(marker);
+
+                 marker.bindPopup(popupText);
+            }
+            
+            
+            
             // Cluster
+            
             var markers = L.markerClusterGroup();
-            var markers1 = L.markerClusterGroup();
+            
             
             markers.addLayer(L.marker([49.197, 13.050]));
-            markers1.addLayer(L.marker([49.297, 13.050]));
+            markers.addLayer(L.marker([49.297, 13.050]));
             markers.addLayer(L.marker([49.397, 13.050]));
-            mymap.addLayer(markers);
-            mymap.addLayer(markers1);
+            mymap.addLayer(markers);  
             
-            
-            
+            // Marker Popup
+            //markers.bindPopup("<b>Hello world!</b><br>I am a popup.");
+            markers.bindPopup($('<button>GPX1</button>').click(function() {gpxShow(gpxEins)})[0]);
+            //markers.bindPopup($('<button>GPX2</button>').click(function() {gpxShow(gpxEins)})[1]);
+            //markers.bindPopup($('<button>GPX3</button>').click(function() {gpxShow(gpxEins)})[2]);
+        
             var gpxEins = './gpx/Lam-Heugstatt-KleinerArbersee-Lam.gpx';
             var gpxZwei = './gpx/Lam-Kollmstein-Ottenzell-Lam.gpx';
             
@@ -69,16 +97,13 @@
                 //omnivore.gpx('gpx/Lam-Heugstatt-Kleiner Arbersee-Lam.gpx').removeTo(mymap);
                 location.reload();
             };
-            
-            // Marker Popup
-            markers.bindPopup("<b>Hello world!</b><br>I am a popup.");
-            markers1.bindPopup($('<button>GPX1</button>').click(function() {gpxShow(gpxEins)})[0]);
-            
+                    
             // Omnivore GPX einbinden
             //omnivore.gpx('gpx/Lam-Heugstatt-Kleiner Arbersee-Lam.gpx').addTo(mymap);
             
             //var omnivore = L.omnivore.gpx('gpx/Lam-Heugstatt-Kleiner Arbersee-Lam.gpx');
             
+            // Buttons ausserhalb der Map
             document.getElementById("zeigen").onclick = function(){gpxShow(gpxEins)};
             document.getElementById("zeigen2").onclick = function(){gpxShow(gpxZwei)};
             document.getElementById("verstecken").onclick = function(){gpxHide()};

@@ -33,6 +33,7 @@
         <p></p>
         <button id="zeigen"> gpx1 </button>
         <button id="zeigen2"> gpx2 </button>
+        <button id="zeigen3"> gpx3 </button>
         <button id="verstecken">  hide</button>
         
         <script>
@@ -46,11 +47,23 @@
                 accessToken: 'pk.eyJ1Ijoid29pZmdhbmciLCJhIjoiY2lqdmhxZXBkMDc2Znc4bTNncWxkMGM0YiJ9.p8Kxga4m-9kvzFuNNF7Gww'
             }).addTo(mymap);
             
+            
+            // GPX
+            var gpxEins = './gpx/Lam-Heugstatt-KleinerArbersee-Lam.gpx';
+            var gpxZwei = './gpx/Lam-Kollmstein-Ottenzell-Lam.gpx';
+            var gpxDrei = './gpx/Lam-Osser-KleinerAber-KleinerArbersee-Lam.gpx';
+            
+            var gpxArray= [
+                [gpxEins],
+                [gpxZwei],
+                [gpxDrei],
+            ];
+            
             // Marker Array
             var markerArray = [
-                [13.050, 49.190, "marker 0 <br><button id='0'>test</button>"],
-                [13.050, 49.290, "marker 1 <br><button id='1'>test</button>"],
-                [13.050, 49.390, "marker 2 <br><button id='2'>test</button>"],
+                [13.050, 49.190, "<h1>marker 0</h1> <br><button id='0'>test</button>","./gpx/Lam-Heugstatt-KleinerArbersee-Lam.gpx"],
+                [13.050, 49.290, "<h1>marker 1</h1> <br><button id='1'>test</button>", gpxZwei],
+                [13.050, 49.390, "<h1>marker 2</h1> <br><button id='2'>test</button>", gpxDrei],
                 
             ];
             
@@ -58,14 +71,32 @@
                 var lon = markerArray[i][0];
                 var lat = markerArray[i][1];
                 var popupText = markerArray[i][2];
+                var markerLocation = new L.LatLng(lat, lon);
+                var marker = new L.Marker(markerLocation);
+                mymap.addLayer(marker);
+                marker.bindPopup(popupText);
                 
-
-                 var markerLocation = new L.LatLng(lat, lon);
-                 var marker = new L.Marker(markerLocation);
-                 mymap.addLayer(marker);
-
-                 marker.bindPopup(popupText);
+                /*
+                $('#mapid').on('click', '#'+i, function(){                     
+                    alert(gpxArray[zahl]);
+                    var tmp = gpxArray[zahl];
+                    gpxShow(tmp);
+                    }
+                 );
+                 */
+                popupClick(i,gpxArray);
+                 
             }
+            // Click ausführen                
+            function popupClick(ii,aa){
+                $('#mapid').on('click', '#'+i, function(){
+                    var tmp = aa[ii];
+                    
+                    omnivore.gpx(gpxEins).addTo(mymap);
+                    alert(tmp);
+                })
+            }    
+            
             
             
             
@@ -85,8 +116,7 @@
             //markers.bindPopup($('<button>GPX2</button>').click(function() {gpxShow(gpxEins)})[1]);
             //markers.bindPopup($('<button>GPX3</button>').click(function() {gpxShow(gpxEins)})[2]);
         
-            var gpxEins = './gpx/Lam-Heugstatt-KleinerArbersee-Lam.gpx';
-            var gpxZwei = './gpx/Lam-Kollmstein-Ottenzell-Lam.gpx';
+
             
             function gpxShow(gpxDatei){
                 omnivore.gpx(gpxDatei).addTo(mymap);
@@ -106,6 +136,7 @@
             // Buttons ausserhalb der Map
             document.getElementById("zeigen").onclick = function(){gpxShow(gpxEins)};
             document.getElementById("zeigen2").onclick = function(){gpxShow(gpxZwei)};
+            document.getElementById("zeigen3").onclick = function(){gpxShow(gpxDatei)};
             document.getElementById("verstecken").onclick = function(){gpxHide()};
             
         

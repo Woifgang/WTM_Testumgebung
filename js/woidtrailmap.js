@@ -34,9 +34,9 @@
             //-------------------------------- M A R K E R -------------------------------------------
             //----------------------------------------------------------------------------------------
             var markerArray = [
-                [13.04552393965423107147216796875, 49.19880174100399017333984375, "<h1>Lam - Heugstatt - Kleiner Arbersee - Lam</h1><p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p><button id='0'>Track anzeigen</button>"],
-                [13.04581, 49.19845, "<h1>Lam - Kolmstein - Ottenzell - Lam</h1> <br><button id='1'>Track anzeigen</button>"],
-                [13.05144980, 49.19648030, "<h1>Lam - Osser - Kleiner Arber - Kleiner Arbersee - Lam</h1> <br><button id='2'>Track anzeigen</button>"],
+                [13.04552393965423107147216796875, 49.19880174100399017333984375, "<h1>Lam - Heugstatt - Kleiner Arbersee - Lam</h1><p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p><button id='0'>Track anzeigen</button>", './gpx/Lam-Heugstatt-KleinerArbersee-Lam.gpx'],
+                [13.04581, 49.19845, "<h1>Lam - Kolmstein - Ottenzell - Lam</h1> <br><button id='1'>Track anzeigen</button>",'./gpx/Lam-Kollmstein-Ottenzell-Lam.gpx'],
+                [13.05144980, 49.19648030, "<h1>Lam - Osser - Kleiner Arber - Kleiner Arbersee - Lam</h1> <br><button id='2'>Track anzeigen</button>", './gpx/Lam-Osser-KleinerAber-KleinerArbersee-Lam.gpx'],
                 
             ];      
 
@@ -58,6 +58,7 @@
                 var lon = markerArray[i][0]; // Längengrad
                 var lat = markerArray[i][1]; // Breitengrad
                 var popupText = markerArray[i][2]; // Popup HTML
+                var gpxPfad = markerArray[i][3]; // GPX Pfad
                 
                 // Cluster-Marker erzeugen erzeugen
                 var marker = L.marker([lat,lon]); // Breiten-und Längengrad in Variable schreiben
@@ -65,8 +66,9 @@
                 
                 // Popup generieren mit HTML 
                 marker.bindPopup(popupText);
-                // Button GPX verwendbar machen                
-                gpxInMapAnzeigen(gpxArray,i);
+                // Button GPX verwendbar machen               
+                //gpxInMapAnzeigenSeperatesArray(gpxArray,i); // -> seperates Array
+                gpxInMapAnzeigen(gpxPfad); // -> aus marker Arrray
                  
             }
             // Alle Marker hinzufügen -> Cluster
@@ -83,8 +85,9 @@
             //--------------------------- F U N K T I O N E N ----------------------------------------
             //----------------------------------------------------------------------------------------
             
-            // GPX-Array in Karte anzeigen via Klick             
-            function gpxInMapAnzeigen(gpxAdresse, arrayNummer){
+            // GPX-Array in Karte anzeigen via Klick -> seperates GPX Array  
+            // wird normalerweise nicht mehr benötigt!!!
+            function gpxInMapAnzeigenSeperatesArray(gpxAdresse, arrayNummer){
                 $('#mapid').on('click', '#'+i, function(){
                     //var tmp = aa[ii];
                     
@@ -92,7 +95,19 @@
                    // alert(tmp);
                 })
             }
+            // GPX Pfad anzeigen lassen aus Array mit allen Daten
+            // Vorbereitungen für CSV import
+            function gpxInMapAnzeigen(gpxAdresse){
+                $('#mapid').on('click', '#'+i, function(){
+                    //var tmp = aa[ii];
+                    
+                    omnivore.gpx(gpxAdresse).addTo(mymap);
+                   // alert(tmp);
+                })
+            }
             
+
+
             // Einzelne GPX Datei anzeigen
             function gpxShow(gpxDatei){
                 omnivore.gpx(gpxDatei).addTo(mymap);

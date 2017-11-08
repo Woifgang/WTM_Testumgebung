@@ -2,7 +2,7 @@
 //---------------------------------- M A P -----------------------------------------------
 //----------------------------------------------------------------------------------------
 // Zentrierter Punkt Lam
-var mymap = L.map('mapid').setView([49.197, 13.050], 8);
+//var mymap = L.map('mapid').setView([49.197, 13.050], 8);
 // Karte einbinden
 /*
 // Mapbox    
@@ -11,13 +11,38 @@ L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={
             maxZoom: 18,
             id: 'mapbox.streets',
             accessToken: 'pk.eyJ1Ijoid29pZmdhbmciLCJhIjoiY2lqdmhxZXBkMDc2Znc4bTNncWxkMGM0YiJ9.p8Kxga4m-9kvzFuNNF7Gww'
-*/
+
 // Opentopomap
 L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
             maxZoom: 17,
             attribution: 'Map data: &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'
             
 }).addTo(mymap);
+*/
+var base = new L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
+            maxZoom: 17,
+            attribution: 'Map data: &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'
+            
+});
+
+var mymap = new L.Map('mapid', {
+			layers: [base],
+			center: new L.LatLng(49.197, 13.050),
+			zoom: 10,
+			fullscreenControl: true,
+			fullscreenControlOptions: { // optional
+				title:"Fullscreen",
+				titleCancel:"Exit fullscreen"
+			}
+		});
+
+// detect fullscreen toggling
+mymap.on('enterFullscreen', function(){
+	if(window.console) window.console.log('enterFullscreen');
+	});
+mymap.on('exitFullscreen', function(){
+	if(window.console) window.console.log('exitFullscreen');
+	});
 
 //----------------------------------------------------------------------------------------
 //------------------------------ C L U S T E R -------------------------------------------
@@ -60,7 +85,8 @@ Papa.parse("./csv/gpx.csv",{
         // FUNKTION GPX in Karte via Button Anzeigen
         function gpxInMapAnzeigen(gpxAdresse){
             $('#mapid').on('click', '#'+i, function(){
-            omnivore.gpx(gpxAdresse).addTo(mymap);
+            omnivore.gpx(gpxAdresse).addTo(mymap); // GPX in karte
+                mymap.setZoom(12); // Zoom der Karte ändern
             })
         }; 
     }

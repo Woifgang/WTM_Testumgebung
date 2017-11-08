@@ -78,11 +78,6 @@
             
             // Buttons ausserhalb der Map
             document.getElementById("reload").onclick = function(){mapReload()};
-
-            $(function() {
-                $(".rslides").responsiveSlides();
-            });
-
             
             //----------------------------------------------------------------------------------------
             //--------------------------- F U N K T I O N E N ----------------------------------------

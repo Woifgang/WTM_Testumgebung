@@ -34,7 +34,8 @@ function asyncCsv2Array(fileName, separator, callback) {
     
 // Beispielaufruf    
 asyncCsv2Array("./csv/gpx.csv", ";", function(result) {
-    console.log(result);
+    var tmp = result;
+    console.log(tmp);
     // Ausgabe von "Dracula"
     console.log(result[0][2]);
     // Ausgabe von "51.23424"

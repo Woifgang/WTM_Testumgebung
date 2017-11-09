@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang=de>
     <head>
-        <title>Leaflet Map Cluster</title>
+        <title>WoidTrailMap</title>
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <!-- Leaflet / Mapbox -->
          <link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css"
@@ -28,36 +28,30 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
-        
-        
-        <style>
-            
-            #wrapper{
-                background-color: greenyellow;
-                width: 100%;
-                height: 100%;
-            }
-            #header{
-                height: 50px;
-                background-color: greenyellow;
-            }
-        
-            #mapid{
-                height: 580px;
-            }
-            
-        </style>
-        
+        <!-- Fontaweson -->
+        <link rel="stylesheet" href="css/font-awesome.min.css" />
+        <!-- Google Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Saira+Condensed|Sigmar+One" rel="stylesheet">
+        <!-- Woidtrailmap CSS -->
+        <link rel="stylesheet" href="css/woidtrailmap.css" />
     </head>
-    <body>
-        <div id="wrapper">
-            <div id="header"></div>
+    <body class="color-primary-0-bg">
+        <div id="wrapper" class="color-primary-0-bg color-primary-1">
+            <div id="header">
+                <div id="baeume">
+                    <div id="baumGross" class="fa fa-tree fa-2x" aria-hidden="true"></div>
+                    <div id="baumMittel" class="fa fa-tree fa-lg" aria-hidden="true"></div>
+                    <div id="baumKlein" class="fa fa-tree fa-1x" aria-hidden="true"></div>
+                </div>
+                <div id="sitename">WoidTrailMap</div>
+            
+            </div>
             <div id="mapid"></div>
             <p></p>
-        <button id="reload">RELOAD</button>     
-        
+            <button id="reload">RELOAD</button>            
         </div>
-         
+        <!-- Footer -->
+         <div class="fixed-bottom color-primary-0-bg color-primary-1">...</div>
         <script src="js/woidtrailmap.js"></script>
         <!--<script src="js/csvImport.js"></script>-->
     

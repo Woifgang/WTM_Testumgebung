@@ -38,20 +38,46 @@
     <body class="color-primary-0-bg">
         <div id="wrapper" class="color-primary-0-bg color-primary-1">
             <div id="header">
-                <div id="baeume">
-                    <div id="baumGross" class="fa fa-tree fa-2x" aria-hidden="true"></div>
-                    <div id="baumMittel" class="fa fa-tree fa-lg" aria-hidden="true"></div>
-                    <div id="baumKlein" class="fa fa-tree fa-1x" aria-hidden="true"></div>
-                </div>
+                <div id="baumMittel" class="fa fa-tree fa-lg" aria-hidden="true"></div>
+                
                 <div id="sitename">WoidTrailMap</div>
-            
+                <div id="baumMittel" class="fa fa-tree fa-lg" aria-hidden="true"></div>
+                <!-- Menü -->
+                <ul class="nav nav-tabs justify-content-end">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle menueLink" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">GPX</a>
+                            <div class="dropdown-menu">
+                              <a class="dropdown-item" href="#">Leicht</a>
+                              <a class="dropdown-item" href="#">Mittel</a>
+                              <a class="dropdown-item" href="#">Schwer</a>
+                              <div class="dropdown-divider"></div>
+                              <a class="dropdown-item" href="#">Hotspots</a>
+                              <div class="dropdown-divider"></div>
+                              <a class="dropdown-item" href="#">Alle</a>
+                            </div>
+                        </li>
+                    <li class="nav-item">
+                        <a id="reload" class="nav-link " href="index.html">Reload Map</a>
+                    </li>  
+                    <li class="nav-item">
+                        <a class="nav-link menueLink" href="#">Link</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link menueLink active" href="#">Link</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link disabled" href="#">Disabled</a>
+                    </li>
+                </ul>
+                <div class="clear"><</div>
             </div>
-            <div id="mapid"></div>
-            <p></p>
-            <button id="reload">RELOAD</button>            
+            <div id="mapid"></div>            
         </div>
         <!-- Footer -->
-         <div class="fixed-bottom color-primary-0-bg color-primary-1">...</div>
+         <div class="fixed-bottom color-primary-0-bg color-primary-1">
+             <div class="footerMenue">Startseite | Kontakt | Impressum</div>
+            <div class="footerCopyright">  © WoidTrailMap 2017</div>
+        </div>
         <script src="js/woidtrailmap.js"></script>
         <!--<script src="js/csvImport.js"></script>-->
     

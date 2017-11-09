@@ -15,6 +15,12 @@ font-family: 'Sigmar One', cursive;
 font-family: 'Saira Condensed', sans-serif;
 */
 
+a{
+    color: #CDDBD0;
+}
+a:hover{
+   color: #fff; 
+}
 
 #wrapper{
     width: 100%;
@@ -26,7 +32,7 @@ font-family: 'Saira Condensed', sans-serif;
 
 #baeume{
     height: 50px;
-    width: 80px;
+    width: 28px;
     float: left;
 }
 
@@ -36,7 +42,7 @@ font-family: 'Saira Condensed', sans-serif;
 }
 #baumMittel{
     float: left;
-    padding-top: 18px;
+    padding-top: 21px;
     padding-left: 5px;
 }
 #baumKlein{
@@ -47,13 +53,72 @@ font-family: 'Saira Condensed', sans-serif;
 
 #sitename{
     font-family: 'Sigmar One', cursive;
-    padding: 5px;
-    width: 200px;
+    font-size: 2em;
+    padding-top: 5px;
+   // width: 200px;
     height: 50px;
     float: left;
 }
-        
+
+/*MENÜ*/
+.active{
+    color: #002508;
+    background-color: #CDDBD0;
+    border-color: #ddd #ddd #fff;
+    border-bottom: 1px solid #ddd !important;
+}
+
+.menueAktiv:hover{
+    color: #fff;
+}
+
+.menueLink{
+    color: #CDDBD0;
+}
+
+.menueLink:hover{
+    color: #fff;
+}
+
+.dropdown-menu.show{
+    background-color: #2B803E;
+}
+
+.dropdown-item{
+    color: #CDDBD0;
+}
+
+.dropdown-item:active{
+    background-color: #CDDBD0;
+}
+
+.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active{
+    background-color: #CDDBD0;
+}
+
 #mapid{
-    height: 500px;
+    height: 650px;
     width: 100%;
+}
+
+/*FOOTER*/
+.footerCopyright{
+    //width: 165px;
+    float: right;
+    padding-right: 10px;
+}
+
+.footerMenue{
+    float: left;
+    padding-left: 10px;
+}
+
+.clear{
+    clear: both;
+}
+
+/* Marker Cluster*/
+
+.marker-cluster-small{
+    background-color: rgba(255, 146, 0, 0.6);
 }

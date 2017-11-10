@@ -131,8 +131,11 @@ a:hover{
 ********** M a r k e r  C l u s t e r ************
 *************************************************/
 
+
+
 .marker-cluster-small {
 	/*background-color: rgba(181, 226, 140, 0.6);*/
+    background-color: rgba(255, 146, 0, 0.6);
     background-color: aqua;
 	}
 .marker-cluster-small div {

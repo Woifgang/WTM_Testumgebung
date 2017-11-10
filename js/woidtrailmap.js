@@ -55,7 +55,7 @@ var markers = L.markerClusterGroup();
 //---------------------- P O P U P / M A R K E R / C S V ---------------------------------
 //----------------------------------------------------------------------------------------
 // Mit Papa parse wird die CSV datei geladen, Marker, Popup und GPX angezeigt
-
+/*
 Papa.parse("./csv/gpx.csv",{
     download: true,
     delimiter: ";",
@@ -82,15 +82,105 @@ Papa.parse("./csv/gpx.csv",{
         };
         // Alle Marker hinzufügen -> Cluster
         mymap.addLayer(markers);    
+        var gpxA;
         // FUNKTION GPX in Karte via Button Anzeigen
         function gpxInMapAnzeigen(gpxAdresse){
             $('#mapid').on('click', '#'+i, function(){
-            omnivore.gpx(gpxAdresse).addTo(mymap); // GPX in karte
-                mymap.setZoom(12); // Zoom der Karte ändern
+                if(gpxA == undefined){
+                    gpxA = omnivore.gpx(gpxAdresse).addTo(mymap); // GPX in Map anzeigen
+                    //mymap.setZoom(12);
+                }
+                else{
+                    mymap.removeLayer(gpxA); //GPX aus MAP entfernen
+                    gpxA = omnivore.gpx(gpxAdresse).addTo(mymap); // GPX in Map anzeigen
+                    //mymap.setZoom(12);
+                }
+                mymap.setZoom(12);
             })
+
         }; 
     }
 });
+*/
+
+//----------------------------------------------------------------------------------------
+//---------------------- A L L E  G P X  A N Z E I G E N ---------------------------------
+//----------------------------------------------------------------------------------------
+var gpxA; // Globale variable für GPXpfade
+var leichteGPX = "./csv/gpx.csv";
+var mittelGPX = "./csv/test.csv";
+
+//alle marker anzeigen
+var seiteNeuGeladen = false;
+if(seiteNeuGeladen == false){
+    csvDateiAuswerten(mittelGPX);
+    seiteNeuGeladen = true;
+}
+
+
+// Menüpunkt Leicht
+$("#leichteGPX").click(function(){
+    mymap.removeLayer(gpxA);
+    csvDateiAuswerten(leichteGPX);
+});
+
+// Menüpunkt Mittel
+$("#mittelGPX").click(function(){
+    mymap.removeLayer(gpxA);
+    csvDateiAuswerten(mittelGPX);
+});
+
+function csvDateiAuswerten(csvDatei){
+    Papa.parse("./csv/gpx.csv",{
+    download: true,
+    delimiter: ";",
+    quoteChar:'',
+    complete: function(results){
+        var ergebnis = results.data;
+        //console.log(ergebnis); // Debug informationen
+        for(var i = 0; i < ergebnis.length; i++){ // For-Schleife CSV auswerten
+            var lon = ergebnis[i][0]; // Längengrad
+            var lat = ergebnis[i][1]; // Breitengrad
+            var popupText = ergebnis[i][2]; // Popup HTML
+            var gpxPfad = ergebnis[i][3]; // GPX Pfad
+
+            // Cluster-Marker erzeugen erzeugen
+            var marker = L.marker([lat,lon]); // Breiten-und Längengrad in Variable schreiben
+            markers.addLayer(marker); // Marker zum Layer hinzufügen
+
+            // Popup generieren mit HTML 
+            marker.bindPopup(popupText);
+            // Button GPX verwendbar machen               
+            //gpxInMapAnzeigenSeperatesArray(gpxPfad,i); // -> seperates Array
+            gpxInMapAnzeigen(gpxPfad); // -> aus marker Arrray
+            
+        };
+        // Alle Marker hinzufügen -> Cluster
+        mymap.addLayer(markers);    
+
+        // FUNKTION GPX in Karte via Button Anzeigen
+        function gpxInMapAnzeigen(gpxAdresse){
+            $('#mapid').on('click', '#'+i, function(){
+                if(gpxA == undefined){
+                    gpxA = omnivore.gpx(gpxAdresse).addTo(mymap); // GPX in Map anzeigen
+                    //mymap.setZoom(12);
+                }
+                else{
+                    mymap.removeLayer(gpxA); //GPX aus MAP entfernen
+                    gpxA = omnivore.gpx(gpxAdresse).addTo(mymap); // GPX in Map anzeigen
+                    //mymap.setZoom(12);
+                }
+                mymap.setZoom(12);
+            })
+
+        }; 
+    }
+});
+}
+
+
+
+
             
 //----------------------------------------------------------------------------------------
 //---------------------------------- H T M L ---------------------------------------------

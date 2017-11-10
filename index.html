@@ -2,6 +2,7 @@
 <html lang=de>
     <head>
         <title>WoidTrailMap</title>
+        <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <!-- Leaflet / Mapbox -->
          <link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css"
@@ -44,13 +45,13 @@
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle menueLink" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">GPX</a>
                             <div class="dropdown-menu">
-                              <a class="dropdown-item" href="#">Leicht</a>
-                              <a class="dropdown-item" href="#">Mittel</a>
+                              <a id="leichteGPX" class="dropdown-item" href="#">Leicht</a>
+                              <a id="mittelGPX" class="dropdown-item" href="#">Mittel</a>
                               <a class="dropdown-item" href="#">Schwer</a>
                               <div class="dropdown-divider"></div>
                               <a class="dropdown-item" href="#">Hotspots</a>
                               <div class="dropdown-divider"></div>
-                              <a class="dropdown-item" href="#">Alle</a>
+                              <a id="alleGPX" class="dropdown-item" href="#">Alle</a>
                             </div>
                         </li>
                     <li class="nav-item">

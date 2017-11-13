@@ -37,7 +37,7 @@
     <body>
         <div id="wrapper">
             
-                <div id="header">
+              <!--  <div id="header">
                     <!--<div id="baumMittel" class="fa fa-tree fa-lg" aria-hidden="true"></div> 
                     <div id="sitename">WoidTrailMap</div>
                     <div id="baumMittel" class="fa fa-tree fa-lg" aria-hidden="true"></div>
@@ -68,7 +68,7 @@
                             <a class="nav-link disabled" href="#">Disabled</a>
                         </li>
                     </ul> -->
-                    <nav class="navbar navbar-toggleable-md navbar-light bg-faded">
+                    <nav id="header" class="navbar navbar-toggleable-md navbar-light bg-faded">
                         <nav class="navbar navbar-expand-lg navbar-light bg-light">
                             <div id="baumMittel" class="fa fa-tree fa-lg" aria-hidden="true"></div> 
                             <div id="sitename">WoidTrailMap</div>
@@ -78,45 +78,39 @@
                                  <span class="navbar-toggler-icon"></span>
                             </button>
 
-                          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                              <ul class="navbar-nav mr-auto">
-                              <li class="nav-item active">
-                                  <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-                              </li>
+                          <div class="collapse navbar-collapse " id="navbarSupportedContent">
+                            <ul class="navbar-nav mr-auto justify-content-end">
+                                <li class="nav-item  active">
+                                  <a class="nav-link" href="#">Home<span class="sr-only">(current)</span></a>
+                                </li>
+                                <li class="nav-item dropdown">
+                                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                      GPX
+                                  </a>
+                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <a class="dropdown-item" href="#">Kurze Touren</a>
+                                        <a class="dropdown-item" href="#">Lange Touren</a>
+                                        <a class="dropdown-item" href="#">Hike and Bike</a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" href="#">Hotspots</a>
+                                    </div>
+                                </li>
                               <li class="nav-item">
                                   <a class="nav-link" href="#">Link</a>
                               </li>
-                              <li class="nav-item dropdown">
-                                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                      Dropdown
-                                  </a>
-                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="#">Action</a>
-                                    <a class="dropdown-item" href="#">Another action</a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="#">Something else here</a>
-                                </div>
-                              </li>
+                              
                               <li class="nav-item">
                                 <a class="nav-link disabled" href="#">Disabled</a>
                               </li>
                             </ul>
-                            <form class="form-inline my-2 my-lg-0">
-                              <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                              <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                            </form>
                           </div>
                         </nav>
+                    </nav>
                     <div class="clear"></div>
-                </div>
+                <!--</div> -->
             <div id="mapid"></div>
-            </div>
-        
-        <!-- Footer 
-         <div class="fixed-bottom color-primary-0-bg color-primary-1">
-             <div class="footerMenue">Startseite | Kontakt | Impressum</div>
-            <div class="footerCopyright">  © WoidTrailMap 2017</div>
-        </div>-->
+        </div>
+
         <script src="js/woidtrailmap.js"></script>
         <!--<script src="js/csvImport.js"></script>-->
     

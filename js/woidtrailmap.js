@@ -107,31 +107,41 @@ Papa.parse("./csv/gpx.csv",{
 //---------------------- A L L E  G P X  A N Z E I G E N ---------------------------------
 //----------------------------------------------------------------------------------------
 var gpxA; // Globale variable für GPXpfade
-var leichteGPX = "./csv/gpx.csv";
-var mittelGPX = "./csv/test.csv";
+var alleGPX = "./csv/alle.csv";
+var alleIdent = "alle";
+var hotspotsGPX = "./csv/hotspots.csv";
+var hotspotsIdent = "hotspots";
 
 //alle marker anzeigen
 var seiteNeuGeladen = false;
 if(seiteNeuGeladen == false){
-    csvDateiAuswerten(mittelGPX);
+    csvDateiAuswerten(alleGPX, alleIdent);
     seiteNeuGeladen = true;
 }
 
 
-// Menüpunkt Leicht
-$("#leichteGPX").click(function(){
+// Menüpunkt AlleGPX
+$("#alleGPX").click(function(){
     mymap.removeLayer(gpxA);
-    csvDateiAuswerten(leichteGPX);
+    csvDateiAuswerten(alleGPX, alleIdent);
 });
 
-// Menüpunkt Mittel
-$("#mittelGPX").click(function(){
-    mymap.removeLayer(gpxA);
-    csvDateiAuswerten(mittelGPX);
+// Menüpunkt Hotspots
+$("#hotspotsGPX").click(function(){
+    if (gpxA == undefined){
+        csvDateiAuswerten(hotspotsGPX, hotspotsIdent);
+        
+    }
+    else if(gpxA != null){
+        csvDateiAuswerten(hotspotsGPX, hotspotsIdent);
+       mymap.removeLayer(gpxA); 
+    }
+    
+    
 });
 
-function csvDateiAuswerten(csvDatei){
-    Papa.parse("./csv/gpx.csv",{
+function csvDateiAuswerten(csvDatei, ident){
+    Papa.parse(csvDatei,{
     download: true,
     delimiter: ";",
     quoteChar:'',
@@ -160,7 +170,7 @@ function csvDateiAuswerten(csvDatei){
 
         // FUNKTION GPX in Karte via Button Anzeigen
         function gpxInMapAnzeigen(gpxAdresse){
-            $('#mapid').on('click', '#'+i, function(){
+            $('#mapid').on('click', '#'+ident+i, function(){
                 if(gpxA == undefined){
                     gpxA = omnivore.gpx(gpxAdresse).addTo(mymap); // GPX in Map anzeigen
                     //mymap.setZoom(12);
@@ -170,7 +180,7 @@ function csvDateiAuswerten(csvDatei){
                     gpxA = omnivore.gpx(gpxAdresse).addTo(mymap); // GPX in Map anzeigen
                     //mymap.setZoom(12);
                 }
-                mymap.setZoom(12);
+                //mymap.setZoom(12);
             })
 
         }; 
@@ -187,7 +197,7 @@ function csvDateiAuswerten(csvDatei){
 //----------------------------------------------------------------------------------------
             
 // Buttons ausserhalb der Map
-document.getElementById("reload").onclick = function(){mapReload()};
+//document.getElementById("reload").onclick = function(){mapReload()};
             
 //----------------------------------------------------------------------------------------
 //--------------------------- F U N K T I O N E N ----------------------------------------

@@ -26,6 +26,92 @@
             #mapid{
                 width: 100%;
                 height: 300px;
+                /*************************************************
+                ********** M a r k e r  C l u s t e r ************
+                *************************************************/
+
+
+
+                .marker-cluster-small {
+                    /*background-color: rgba(181, 226, 140, 0.6);*/
+                    background-color: rgba(255, 146, 0, 0.6);
+                    background-color: aqua;
+                    }
+                .marker-cluster-small div {
+                    /*background-color: rgba(110, 204, 57, 0.6);*/
+                    background-color: bisque;
+                    }
+
+                .marker-cluster-medium {
+                    background-color: rgba(241, 211, 87, 0.6);
+                    }
+                .marker-cluster-medium div {
+                    background-color: rgba(240, 194, 12, 0.6);
+                    }
+
+                .marker-cluster-large {
+                    background-color: rgba(253, 156, 115, 0.6);
+                    }
+                .marker-cluster-large div {
+                    background-color: rgba(241, 128, 23, 0.6);
+                    }
+
+                    /* IE 6-8 fallback colors */
+                .leaflet-oldie .marker-cluster-small {
+                    background-color: rgb(181, 226, 140);
+                    }
+                .leaflet-oldie .marker-cluster-small div {
+                    background-color: rgb(110, 204, 57);
+                    }
+
+                .leaflet-oldie .marker-cluster-medium {
+                    background-color: rgb(241, 211, 87);
+                    }
+                .leaflet-oldie .marker-cluster-medium div {
+                    background-color: rgb(240, 194, 12);
+                    }
+
+                .leaflet-oldie .marker-cluster-large {
+                    background-color: rgb(253, 156, 115);
+                    }
+                .leaflet-oldie .marker-cluster-large div {
+                    background-color: rgb(241, 128, 23);
+                }
+
+                .marker-cluster {
+                    background-clip: padding-box;
+                    border-radius: 20px;
+                    }
+                .marker-cluster div {
+                    width: 30px;
+                    height: 30px;
+                    margin-left: 5px;
+                    margin-top: 5px;
+
+                    text-align: center;
+                    border-radius: 15px;
+                    font: 12px "Helvetica Neue", Arial, Helvetica, sans-serif;
+                    }
+                .marker-cluster span {
+                    line-height: 30px;
+                    }
+
+                .leaflet-cluster-anim .leaflet-marker-icon, .leaflet-cluster-anim .leaflet-marker-shadow {
+                    -webkit-transition: -webkit-transform 0.3s ease-out, opacity 0.3s ease-in;
+                    -moz-transition: -moz-transform 0.3s ease-out, opacity 0.3s ease-in;
+                    -o-transition: -o-transform 0.3s ease-out, opacity 0.3s ease-in;
+                    transition: transform 0.3s ease-out, opacity 0.3s ease-in;
+                }
+
+                .leaflet-cluster-spider-leg {
+                    /* stroke-dashoffset (duration and function) should match with leaflet-marker-icon transform in order to track it exactly */
+                    -webkit-transition: -webkit-stroke-dashoffset 0.3s ease-out, -webkit-stroke-opacity 0.3s ease-in;
+                    -moz-transition: -moz-stroke-dashoffset 0.3s ease-out, -moz-stroke-opacity 0.3s ease-in;
+                    -o-transition: -o-stroke-dashoffset 0.3s ease-out, -o-stroke-opacity 0.3s ease-in;
+                    transition: stroke-dashoffset 0.3s ease-out, stroke-opacity 0.3s ease-in;
+                }
+
+
             }
         
         </style>
@@ -78,28 +164,31 @@
                 die('Ungültige Abfrage: ' . mysqli_error());
             }
         ?>
-        <script type=\"text/javascript\">
+        <script>
             // Cluster Variable erstellen
             var markers = L.markerClusterGroup();
             
-        <?php
-            while ($zeile = mysqli_fetch_array($databaseErgebnis, MYSQLI_ASSOC)){
-                echo "
-                        var id = \"".$zeile['id']."\";
-                        var lon = \"".$zeile['laengengrad']."\";
-                        var lat = \"".$zeile['breitengrad']."\";
-                        var ueberschrift = \"".$zeile['ueberschrift']."\";
-                        var gpxPfad = \"".$zeile['pfadGPX']."\";
-                        //alert(id);
-                        // Cluster-Marker erzeugen erzeugen
-                        var marker = L.marker([lat,lon]); // Breiten-und Längengrad in Variable schreiben
-                        markers.addLayer(marker); // Marker zum Layer hinzufügen
+                <?php
+                    while ($zeile = mysqli_fetch_array($databaseErgebnis, MYSQLI_ASSOC)){
+                        echo "
+                                var id = \"".$zeile['id']."\";
+                                var lon = \"".$zeile['laengengrad']."\";
+                                var lat = \"".$zeile['breitengrad']."\";
+                                var ueberschrift = \"".$zeile['ueberschrift']."\";
+                                var gpxPfad = \"".$zeile['pfadGPX']."\";
+                                //alert(id);
+                                // Cluster-Marker erzeugen erzeugen
+                                var marker = L.marker([lat,lon]); // Breiten-und Längengrad in Variable schreiben
+                                markers.addLayer(marker); // Marker zum Layer hinzufügen
+                                
+                                
 
-                        // Popup generieren mit HTML 
-                        marker.bindPopup(ueberschrift);                        
-                    ";
-            }
-        ?>
+                                // Popup generieren mit HTML 
+                                marker.bindPopup(ueberschrift);                        
+                            ";
+                    }
+                ?>
+                
             // Alle Marker hinzufügen -> Cluster
             mymap.addLayer(markers); 
         </script>

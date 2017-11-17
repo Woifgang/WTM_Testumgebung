@@ -179,6 +179,13 @@
                                 //alert(id);
                                 // Cluster-Marker erzeugen erzeugen
                                 var marker = L.marker([lat,lon]); // Breiten-und Längengrad in Variable schreiben
+                                
+                                var gpxA = './gpx/'+gpxPfad;
+                                alert(gpxA)
+                                
+                                //GPX anzeigen
+                                omnivore.gpx(gpxA).addTo(mymap);
+                                
                                 markers.addLayer(marker); // Marker zum Layer hinzufügen
                                 
                                 

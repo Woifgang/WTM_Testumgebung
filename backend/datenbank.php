@@ -5,13 +5,7 @@
     </head>
     <body>
         <?php 
-            /* 
-             $server = "127.0.0.3";
-             $Benutzer = "db289129_217";
-             $Kennwort = "ps:s5meFg2mV";
-             $Datenbank = "db289129_217";
-             */
-            require_once 'config.php';
+            require_once("../config.php");
             $verbindung = mysqli_connect (DB_SERVER, DB_BENUTZER, DB_PASSWORT, DB_DATENBANK);
         
             $kategorie = $_POST["kategorie"];

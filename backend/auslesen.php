@@ -1,6 +1,6 @@
 
         <?php
-           require_once 'config.php';
+           require_once("../config.php");
             $verbindung = mysqli_connect (DB_SERVER, DB_BENUTZER, DB_PASSWORT, DB_DATENBANK);
         
             $databaseAbfrage = "SELECT * FROM woidtrailmap";

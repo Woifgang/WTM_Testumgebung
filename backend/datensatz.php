@@ -1,6 +1,7 @@
 <html>
     <head>
-        <title>Datensatz in Mysql speichern</title>    
+        <title>Datensatz in Mysql speichern</title>   
+        
     </head>
     <body>
         <form action="datenbank.php" method="post">
@@ -23,7 +24,11 @@
             <p>GPX Pfad: <input type="text" name="pfadGPX" /></p>
             <p><input type="submit" value="Los" /></p>
         </form>
-    
+        <p></p>
+        <h2>Alle Daten</h2>
+        <?php
+            include 'auslesen.php';
+        ?>
     </body>
 
 </html>

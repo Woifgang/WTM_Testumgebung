@@ -5,17 +5,23 @@
     </head>
     <body>
         <?php 
+            /* 
              $server = "127.0.0.3";
              $Benutzer = "db289129_217";
              $Kennwort = "ps:s5meFg2mV";
              $Datenbank = "db289129_217";
+             */
+            require 'config.php';
 
              $verbindung = mysqli_connect ($server, $Benutzer, $Kennwort, $Datenbank);
         
-            
+            $kategorie = $_POST["kategorie"];
             $laengengrad = $_POST["laengengrad"];
             $breitengrad = $_POST["breitengrad"];
             $ueberschrift = $_POST["ueberschrift"];
+            $kilometer = $_POST["kilometer"];
+            $hoehenmeter = $_POST["hoehenmeter"];
+            $tiefenmeter = $_POST["tiefenmeter"];
             $beschreibung = $_POST["beschreibung"];
             $pfadGPX = $_POST["pfadGPX"];
             
@@ -25,7 +31,28 @@
             }
             else{
                 
-                $sendeDaten = "INSERT INTO woidtrailmap (laengengrad, breitengrad, ueberschrift, beschreibung, pfadGPX) VALUES('$laengengrad', '$breitengrad', '$ueberschrift', '$beschreibung', '$pfadGPX')";
+                $sendeDaten = "INSERT INTO woidtrailmap (
+                                            kategorie,
+                                            laengengrad, 
+                                            breitengrad, 
+                                            ueberschrift, 
+                                            kilometer,
+                                            hoehenmeter,
+                                            tiefenmeter,
+                                            beschreibung,
+                                            pfadGPX
+                                            ) 
+                                            VALUES(
+                                            '$kategorie',
+                                            '$laengengrad', 
+                                            '$breitengrad', 
+                                            '$ueberschrift',
+                                            '$kilometer',
+                                            '$hoehenmeter',
+                                            '$tiefenmeter',
+                                            '$beschreibung', 
+                                            '$pfadGPX'
+                                            )";
                 $sendenAnDatabase = mysqli_query($verbindung, $sendeDaten);
                 
                 if($sendenAnDatabase == true){

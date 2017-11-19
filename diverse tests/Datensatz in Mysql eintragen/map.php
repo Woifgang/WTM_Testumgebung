@@ -149,15 +149,17 @@
         </script>
         
         <?php
-        
+        /*
             $server = "127.0.0.3";
             $benutzer = "db289129_217";
             $kennwort = "ps:s5meFg2mV";
             $datenbank = "db289129_217";
+        */
         
-        //include ('config.php');
         
-            $verbindung = mysqli_connect ($server, $benutzer, $kennwort, $datenbank);
+           // $verbindung = mysqli_connect ($server, $benutzer, $kennwort, $datenbank);
+            require_once 'config.php';
+            $verbindung = mysqli_connect (DB_SERVER, DB_BENUTZER, DB_PASSWORT, DB_DATENBANK);
         
             $databaseAbfrage = "SELECT * FROM woidtrailmap";
         

@@ -11,9 +11,8 @@
              $Kennwort = "ps:s5meFg2mV";
              $Datenbank = "db289129_217";
              */
-            require 'config.php';
-
-             $verbindung = mysqli_connect ($server, $Benutzer, $Kennwort, $Datenbank);
+            require_once 'config.php';
+            $verbindung = mysqli_connect (DB_SERVER, DB_BENUTZER, DB_PASSWORT, DB_DATENBANK);
         
             $kategorie = $_POST["kategorie"];
             $laengengrad = $_POST["laengengrad"];

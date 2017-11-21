@@ -1,7 +1,7 @@
 <html>
     <head>
         <title> Datenbank PHP </title>
-        <meta http-equiv="refresh" content="0; URL=datensatz.php">
+        <meta http-equiv="refresh" content="0; URL=index.php">
     </head>
     <body>
         <?php 

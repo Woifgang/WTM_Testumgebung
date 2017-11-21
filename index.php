@@ -20,8 +20,6 @@
         <script src="http://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-omnivore/v0.3.1/leaflet-omnivore.min.js"></script>
         <!-- Jquery -->
         <script src="js/jquery-3.2.1.min.js"></script>
-        <!-- Papaparse -->
-        <script src="js/papaparse.min.js"></script>
         <!-- Fullscreen Map -->
         <script src="js/Control.FullScreen.js"></script>
         <!-- Bootstrap -->

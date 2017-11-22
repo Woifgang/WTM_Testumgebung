@@ -4,8 +4,10 @@
         
     </head>
     <body>
+        
+       
 
-        <form action="datenbank.php" method="post">
+        <form enctype="multipart/form-data" action="datenbank.php" method="post">
             <label> Kategorie:
                 <select name="kategorie">
                     <option>Tour</option>
@@ -23,6 +25,8 @@
                 <textarea rows="4" cols="50" name="beschreibung"></textarea>
             </p>    
             <p>GPX Pfad: <input type="text" name="pfadGPX" /></p>
+            <input type="file" name="userfile" />
+            <input type="hidden" name="send" value="1" />
             <p><input type="submit" value="Los" /></p>
         </form>
         <p></p>

@@ -26,3 +26,17 @@ mymap.on('enterFullscreen', function(){
 mymap.on('exitFullscreen', function(){
     if(window.console) window.console.log('exitFullscreen');
 });
+
+
+
+mymap.on('click', function(e){
+    var marker = new L.marker(e.latlng).addTo(mymap);
+    //alert(e.latlng);
+    var tmp = e.latlng;
+    var latte = e.latlng.lat;
+    var lang = e.latlng.lng;
+    console.log(tmp);
+    console.log(latte);
+    console.log(lang);
+});
+

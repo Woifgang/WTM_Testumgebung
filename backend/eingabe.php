@@ -26,22 +26,12 @@
             <input type="file" name="userfile" />
             <input type="hidden" name="send" value="1" />
             <input type="submit" value="GPX Hochladen..." />
-            <p>Längengrad: <input type="text" name="laengengrad" id="laengengrad" /></p>
-            <p>Breitengrad: <input type="text"  name="breitengrad" id="breitengrad" /></p>
-            <div id="mapid"></div>
-            <p>Überschrift: <input type="text" name="ueberschrift" /></p>
-            <p>Kilometer: <input type="number" name="kilometer" /></p>
-            <p>Höhenmeter: <input type="number" name="hoehenmeter" /></p>
-            <p>Tiefenmeter: <input type="number" name="tiefenmeter" /></p>
-            <p>Beschreibung: 
-                <textarea rows="4" cols="50" name="beschreibung"></textarea>
-            </p> 
-            <p><input type="submit" value="Los" /></p>
+            
             
             
         </form>
         
-        <script src="js/map.js"></script>
+        
         
     </body>
 </html>

@@ -2,6 +2,24 @@
     <head>
         <title> Datenbank PHP </title>
         <!-- <meta http-equiv="refresh" content="0; URL=index.php"> -->
+        <!-- Leaflet / Mapbox -->
+         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css"
+                   integrity="sha512-M2wvCLH6DSRazYeZRIm1JnYyh22purTM+FDB5CsyxtQJYeKq83arPe5wgbNmcFXGqiSH2XR8dT/fJISVA1r/zQ=="
+                   crossorigin=""/>
+         <script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"
+                   integrity="sha512-lInM/apFSqyy1o6s89K4iQUKg6ppXEgsVxT35HbzUupEVRh2Eu9Wdl4tHj7dZO0s1uvplcYGmt3498TtHq+log=="
+                   crossorigin=""></script>     
+        <!-- Omniore GPX einbinden -->
+        <script src="http://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-omnivore/v0.3.1/leaflet-omnivore.min.js"></script>
+        <!-- Jquery -->
+        <script src="js/jquery-3.2.1.min.js"></script>
+        <style>
+            #mapid{
+                width: 100%;
+                height: 300px;
+            }
+        </style>
+        
     </head>
     <body>
         <?php 
@@ -43,31 +61,15 @@
             echo " hier soll der pfad stehn $pfadGPX";
             
         
-            if($laengengrad == "" or $breitengrad == "" or $ueberschrift == "" or $beschreibung == "" or $pfadGPX == ""){
-                echo "Es wurden nicht alle Felder ausgefüllt";
+            if($pfadGPX == ""){
+                echo "Es wurde kein Pfad angegeben!";
             }
             else{
                 
                 $sendeDaten = "INSERT INTO woidtrailmap (
-                                            kategorie,
-                                            laengengrad, 
-                                            breitengrad, 
-                                            ueberschrift, 
-                                            kilometer,
-                                            hoehenmeter,
-                                            tiefenmeter,
-                                            beschreibung,
                                             pfadGPX
                                             ) 
                                             VALUES(
-                                            '$kategorie',
-                                            '$laengengrad', 
-                                            '$breitengrad', 
-                                            '$ueberschrift',
-                                            '$kilometer',
-                                            '$hoehenmeter',
-                                            '$tiefenmeter',
-                                            '$beschreibung', 
                                             '$pfadGPX'
                                             )";
                 $sendenAnDatabase = mysqli_query($verbindung, $sendeDaten);
@@ -89,11 +91,31 @@
             $updateDatabase = mysqli_query($verbindung, $updateDatabase);
         */    
                 
-            mysqli_close($verbindung);
-        
-        
-            
+            mysqli_close($verbindung);                  
         ?>
+        
+        <form enctype="multipart/form-data" action="datenbank3.php" method="post">
+            <label> Kategorie:
+                <select name="kategorie">
+                    <option>Tour</option>
+                    <option>Hotspots</option>
+                    <option>Alle</option>
+                </select>
+            </label>
+            <p>Längengrad: <input type="text" name="laengengrad" id="laengengrad" /></p>
+            <p>Breitengrad: <input type="text"  name="breitengrad" id="breitengrad" /></p>
+            <div id="mapid"></div>
+            <p>Überschrift: <input type="text" name="ueberschrift" /></p>
+            <p>Kilometer: <input type="number" name="kilometer" /></p>
+            <p>Höhenmeter: <input type="number" name="hoehenmeter" /></p>
+            <p>Tiefenmeter: <input type="number" name="tiefenmeter" /></p>
+            <p>Beschreibung: 
+                <textarea rows="4" cols="50" name="beschreibung"></textarea>
+            </p> 
+            <p><input type="submit" value="Los" /></p>
+        </form>
+        
+        <script src="js/map.js"></script>
     
     </body>
 

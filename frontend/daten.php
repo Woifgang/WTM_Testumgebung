@@ -19,6 +19,7 @@
             
     <?php
         while ($zeile = mysqli_fetch_array($databaseErgebnis, MYSQLI_ASSOC)){
+            $tmpBeschreibung = str_replace(array("\r\n","\n","\r"),"",$zeile['beschreibung']); 
             echo "
                 var id = \"".$zeile['id']."\";
                 var lon = \"".$zeile['laengengrad']."\";
@@ -27,7 +28,7 @@
                 var kilometer = \"".$zeile['kilometer']."\";
                 var hoehenmeter = \"".$zeile['hoehenmeter']."\";
                 var tiefenmeter = \"".$zeile['tiefenmeter']."\";
-                var beschreibung = \"".$zeile['beschreibung']."\";
+                var beschreibung = \"".$tmpBeschreibung."\";
                 var gpxPfad = \"".$zeile['pfadGPX']."\";
                 //alert(id);
                 // Cluster-Marker erzeugen erzeugen
@@ -53,7 +54,7 @@
                 // Popup generieren mit HTML 
                 marker.bindPopup(popupText);      
 
-                // GPX via Putton
+                // GPX via Button
                 gpxInMapAnzeigen(tmpGPX, id);
             ";
         }

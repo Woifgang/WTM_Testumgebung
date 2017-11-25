@@ -1,39 +1,37 @@
 <html>
     <head>
-        <title>Datensatz in Mysql speichern</title>   
+        <title>Eingabe V2</title>   
+        <!-- Leaflet / Mapbox -->
+         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css"
+                   integrity="sha512-M2wvCLH6DSRazYeZRIm1JnYyh22purTM+FDB5CsyxtQJYeKq83arPe5wgbNmcFXGqiSH2XR8dT/fJISVA1r/zQ=="
+                   crossorigin=""/>
+         <script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"
+                   integrity="sha512-lInM/apFSqyy1o6s89K4iQUKg6ppXEgsVxT35HbzUupEVRh2Eu9Wdl4tHj7dZO0s1uvplcYGmt3498TtHq+log=="
+                   crossorigin=""></script>     
+        <!-- Omniore GPX einbinden -->
+        <script src="http://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-omnivore/v0.3.1/leaflet-omnivore.min.js"></script>
+        <!-- Jquery -->
+        <script src="js/jquery-3.2.1.min.js"></script>
+        <style>
+            #mapid{
+                width: 100%;
+                height: 300px;
+            }
+        </style>
+        
         
     </head>
     <body>
-        
-       
-
-        <form enctype="multipart/form-data" action="datenbank.php" method="post">
-            <label> Kategorie:
-                <select name="kategorie">
-                    <option>Tour</option>
-                    <option>Hotspots</option>
-                    <option>Alle</option>
-                </select>
-            </label>
-            <p>Längengrad: <input type="number" step="any" name="laengengrad" /></p>
-            <p>Breitengrad: <input type="number" step="any" name="breitengrad" /></p>
-            <p>Überschrift: <input type="text" name="ueberschrift" /></p>
-            <p>Kilometer: <input type="number" name="kilometer" /></p>
-            <p>Höhenmeter: <input type="number" name="hoehenmeter" /></p>
-            <p>Tiefenmeter: <input type="number" name="tiefenmeter" /></p>
-            <p>Beschreibung: 
-                <textarea rows="4" cols="50" name="beschreibung"></textarea>
-            </p>    
-            <p>GPX Pfad: <input type="text" name="pfadGPX" /></p>
+        <form enctype="multipart/form-data" action="datenbankGpxUpload.php" method="post">
             <input type="file" name="userfile" />
             <input type="hidden" name="send" value="1" />
-            <p><input type="submit" value="Los" /></p>
+            <input type="submit" value="GPX Hochladen..." />
+            
+            
+            
         </form>
-        <p></p>
-        <h2>Alle Daten</h2>
-        <?php
-            include 'auslesen.php';
-        ?>
+        
+        
+        
     </body>
-
 </html>

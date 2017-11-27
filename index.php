@@ -56,9 +56,10 @@
                                       GPX
                                   </a>
                                      <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                        <a id="alleGPX" class="dropdown-item" href="#">Alle Touren</a>
+                                        <a id="alleGPX" class="dropdown-item" href="#">Alle anzeigen</a>
                                         <div class="dropdown-divider"></div>
                                         <a id="hotspotsGPX" class="dropdown-item" href="#">Hotspots</a>
+                                        <a id="tourGPX" class="dropdown-item" href="#">Touren</a>
                                     </div>
                                 </li>
                               <li class="nav-item">
@@ -78,9 +79,8 @@
         </div>
 
         <script src="js/woidtrailmap.js"></script>
-        <?php include 'frontend/daten.php' ?>
-        <!--<script src="js/csvImport.js"></script>-->
-    
+        <script src="js/woidtrailfunctions.js"></script>
+        <?php include 'frontend/daten.php' ?>    
     </body>    
 
 

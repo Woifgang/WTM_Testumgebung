@@ -116,13 +116,11 @@ a:hover{
 
 
 .marker-cluster-small {
-	/*background-color: rgba(181, 226, 140, 0.6);*/
-    background-color: rgba(255, 146, 0, 0.6);
-    background-color: aqua;
+    background-color: #65FF4F;
 	}
 .marker-cluster-small div {
 	/*background-color: rgba(110, 204, 57, 0.6);*/
-    background-color: bisque;
+    background-color: rgba(43, 128, 62, 0.1);
 	}
 
 .marker-cluster-medium {

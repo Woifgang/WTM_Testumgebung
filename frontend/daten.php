@@ -3,61 +3,42 @@
     //require_once("../config.php");
     $verbindung = mysqli_connect (DB_SERVER, DB_BENUTZER, DB_PASSWORT, DB_DATENBANK);
         
-    $databaseAbfrage = "SELECT * FROM woidtrailmap";
+    $databaseAbfrageAlle = "SELECT * FROM woidtrailmap";
+    $databaseAbfrageHotspots = "SELECT * FROM woidtrailmap WHERE kategorie = 'Hotspots'";
+    $databaseAbfrageTour = "SELECT * FROM woidtrailmap WHERE kategorie = 'Tour'";
     
-    $databaseErgebnis = mysqli_query($verbindung, $databaseAbfrage);
-            
-    if(!$databaseErgebnis){
-        die('Ungültige Abfrage: ' . mysqli_error());
-    }
-        
+    
         
 ?>
 <script>
     // Cluster Variable erstellen
     var markers = L.markerClusterGroup();
+    
+    var tmpRemoveLayer = true;
+    
+    $('#alleGPX').click(function(){
+        <?php 
+            datensaetzeAusgeben($verbindung, $databaseAbfrageAlle );
+        ?>        
+    })
+    
+    $('#hotspotsGPX').click(function(){
+        <?php 
+            datensaetzeAusgeben($verbindung, $databaseAbfrageHotspots );
+        ?>
+    })
+    
+    $('#tourGPX').click(function(){
+        <?php 
+            datensaetzeAusgeben($verbindung, $databaseAbfrageTour );
+        ?>
+    })
+    
             
     <?php
-        while ($zeile = mysqli_fetch_array($databaseErgebnis, MYSQLI_ASSOC)){
-            $tmpBeschreibung = str_replace(array("\r\n","\n","\r"),"",$zeile['beschreibung']); 
-            echo "
-                var id = \"".$zeile['id']."\";
-                var lon = \"".$zeile['laengengrad']."\";
-                var lat = \"".$zeile['breitengrad']."\";
-                var ueberschrift = \"".$zeile['ueberschrift']."\";
-                var kilometer = \"".$zeile['kilometer']."\";
-                var hoehenmeter = \"".$zeile['hoehenmeter']."\";
-                var tiefenmeter = \"".$zeile['tiefenmeter']."\";
-                var beschreibung = \"".$tmpBeschreibung."\";
-                var gpxPfad = \"".$zeile['pfadGPX']."\";
-                //alert(id);
-                // Cluster-Marker erzeugen erzeugen
-                var marker = L.marker([lat,lon]); // Breiten-und Längengrad in Variable schreiben
+        
+        //datensaetzeAusgeben($verbindung, $databaseAbfrageAlle );
 
-                // GPX Pfad erzeugen
-                var tmpGPX = './gpx/'+gpxPfad;
-
-                //Popuptext erzeugen
-                var tmpUeberschrift = '<h1>' + ueberschrift + '</h1>';
-                var tmpBeschreibung = '<p>' + beschreibung + '</p>';
-                var tmpKilometer = '<li>Kilometer : ' + kilometer + '</li>';
-                var tmpHoehenmeter = '<li>Höhenmeter : ' + hoehenmeter + '</li>';
-                var tmpTiefenmeter = '<li>Tiefenmeter : ' + tiefenmeter + '</li>';
-                var tmpButton = '<button type=\"button\" class=\"btn btn-success\" id=\"' + id + '\">Track  anzeigen</button>';
-
-                var popupText = tmpUeberschrift + tmpKilometer + tmpHoehenmeter + tmpTiefenmeter + tmpBeschreibung + tmpButton;
-
-
-                // Marker zum Layer hinzufügen                                
-                markers.addLayer(marker); 
-
-                // Popup generieren mit HTML 
-                marker.bindPopup(popupText);      
-
-                // GPX via Button
-                gpxInMapAnzeigen(tmpGPX, id);
-            ";
-        }
     ?>
                 
     // Alle Marker hinzufügen -> Cluster
@@ -84,5 +65,56 @@
             
 </script>
 <?php   
-    mysqli_free_result($databaseErgebnis);
+
+    function datensaetzeAusgeben($tmpVerbindung, $tmpDatensatz){
+        
+            $tmpQuery = mysqli_query($tmpVerbindung, $tmpDatensatz);
+            
+            if(!$tmpQuery){
+                die('Ungültige Abfrage: ' . mysqli_error());
+            }
+        
+        
+            while ($zeile = mysqli_fetch_array($tmpQuery, MYSQLI_ASSOC)){
+                $tmpBeschreibung = str_replace(array("\r\n","\n","\r"),"",$zeile['beschreibung']); 
+                echo "
+                    var id = \"".$zeile['id']."\";
+                    var lon = \"".$zeile['laengengrad']."\";
+                    var lat = \"".$zeile['breitengrad']."\";
+                    var ueberschrift = \"".$zeile['ueberschrift']."\";
+                    var kilometer = \"".$zeile['kilometer']."\";
+                    var hoehenmeter = \"".$zeile['hoehenmeter']."\";
+                    var tiefenmeter = \"".$zeile['tiefenmeter']."\";
+                    var beschreibung = \"".$tmpBeschreibung."\";
+                    var gpxPfad = \"".$zeile['pfadGPX']."\";
+                    //alert(id);
+                    // Cluster-Marker erzeugen erzeugen
+                    var marker = L.marker([lat,lon]); // Breiten-und Längengrad in Variable schreiben
+
+                    // GPX Pfad erzeugen
+                    var tmpGPX = './gpx/'+gpxPfad;
+
+                    //Popuptext erzeugen
+                    var tmpUeberschrift = '<h1>' + ueberschrift + '</h1>';
+                    var tmpBeschreibung = '<p>' + beschreibung + '</p>';
+                    var tmpKilometer = '<li>Kilometer : ' + kilometer + '</li>';
+                    var tmpHoehenmeter = '<li>Höhenmeter : ' + hoehenmeter + '</li>';
+                    var tmpTiefenmeter = '<li>Tiefenmeter : ' + tiefenmeter + '</li>';
+                    var tmpButton = '<button type=\"button\" class=\"btn btn-success\" id=\"' + id + '\">Track  anzeigen</button>';
+
+                    var popupText = tmpUeberschrift + tmpKilometer + tmpHoehenmeter + tmpTiefenmeter + tmpBeschreibung + tmpButton;
+
+
+                    // Marker zum Layer hinzufügen                                
+                    markers.addLayer(marker); 
+
+                    // Popup generieren mit HTML 
+                    marker.bindPopup(popupText);      
+
+                    // GPX via Button
+                    gpxInMapAnzeigen(tmpGPX, id);
+                ";
+            }
+            mysqli_free_result($tmpQuery);
+        }
 ?>

@@ -27,3 +27,5 @@ mymap.on('exitFullscreen', function(){
     if(window.console) window.console.log('exitFullscreen');
 });
 
+
+

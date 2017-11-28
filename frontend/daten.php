@@ -1,60 +1,93 @@
 <?php
+    // Hole Config Datei
     require_once './config.php';
-    //require_once("../config.php");
+    // Verbinde mit MYSQL-Datenbank
     $verbindung = mysqli_connect (DB_SERVER, DB_BENUTZER, DB_PASSWORT, DB_DATENBANK);
-        
+    
+    // Datenbankabfragen 
     $databaseAbfrageAlle = "SELECT * FROM woidtrailmap";
     $databaseAbfrageHotspots = "SELECT * FROM woidtrailmap WHERE kategorie = 'Hotspots'";
-    $databaseAbfrageTour = "SELECT * FROM woidtrailmap WHERE kategorie = 'Tour'";
-    
-    
-        
+    $databaseAbfrageTour = "SELECT * FROM woidtrailmap WHERE kategorie = 'Tour'";        
 ?>
 <script>
-    // Cluster Variable erstellen
+    // Cluster Variablen erstellen
     var markers = L.markerClusterGroup();
+    var markersHotspots = L.markerClusterGroup();
+    var markersTouren = L.markerClusterGroup();
     
-    var tmpRemoveLayer = true;
-    
-    $('#alleGPX').click(function(){
-        <?php 
-            datensaetzeAusgeben($verbindung, $databaseAbfrageAlle );
-        ?>        
-    })
-    
-    $('#hotspotsGPX').click(function(){
-        <?php 
-            datensaetzeAusgeben($verbindung, $databaseAbfrageHotspots );
-        ?>
-    })
-    
-    $('#tourGPX').click(function(){
-        <?php 
-            datensaetzeAusgeben($verbindung, $databaseAbfrageTour );
-        ?>
-    })
-    
-            
-    <?php
-        
-        //datensaetzeAusgeben($verbindung, $databaseAbfrageAlle );
+    // GPX Variable
+    var tmpGPXAdresse; 
 
-    ?>
-                
-    // Alle Marker hinzufügen -> Cluster
-    mymap.addLayer(markers); 
-    var tmp; 
+    // Wenn Seite geladen lade alle Datenbankeinträge von MYSQL
+    $( document ).ready(function() {
+        markers.clearLayers();
+        markersHotspots.clearLayers();
+        markersTouren.clearLayers();
+        
+        <?php 
+            $markersAlle = 'markers';
+            datensaetzeAusgeben($verbindung, $databaseAbfrageAlle, $markersAlle );
+        ?>      
+        
+        mymap.addLayer(markers); 
+    });
+    
+    // Wenn Button 'Alle anzeigen' gedrückt wurde lade alle Datenbankeinträge von MYSQL
+    $('#alleGPX').click(function(){
+        markers.clearLayers();
+        markersHotspots.clearLayers();
+        markersTouren.clearLayers();
+        mymap.removeLayer(tmpGPXAdresse); //GPX aus MAP entfernen
+        
+        <?php 
+            $markersAlle = 'markers';
+            datensaetzeAusgeben($verbindung, $databaseAbfrageAlle, $markersAlle );
+        ?>      
+        
+        mymap.addLayer(markers); 
+    })
+    
+     // Wenn Button 'Hotspots' gedrückt wurde lade alle Datenbankeinträge aus der Kategorie "Hotspots" von MYSQL
+    $('#hotspotsGPX').click(function(){
+        markers.clearLayers();
+        markersHotspots.clearLayers();
+        markersTouren.clearLayers();
+        mymap.removeLayer(tmpGPXAdresse); //GPX aus MAP entfernen
+        
+        <?php 
+            $markersHotspots = 'markersHotspots';
+            datensaetzeAusgeben($verbindung, $databaseAbfrageHotspots, $markersHotspots );
+        ?>
+        
+        mymap.addLayer(markersHotspots); 
+    })
+    // Wenn Button 'Touren' gedrückt wurde lade alle Datenbankeinträge aus der Kategorie "Touren" von MYSQL
+    $('#tourGPX').click(function(){
+        markers.clearLayers();
+        markersHotspots.clearLayers();
+        markersTouren.clearLayers();
+        mymap.removeLayer(tmpGPXAdresse); //GPX aus MAP entfernen
+
+        <?php 
+            $markersTouren = 'markersTouren';
+            datensaetzeAusgeben($verbindung, $databaseAbfrageTour, $markersTouren );
+        ?>
+        
+        mymap.addLayer(markersTouren); 
+    })
+ 
+
     // FUNKTION GPX in Karte via Button Anzeigen
     function gpxInMapAnzeigen(gpxAdresse, identNr){
         $('#mapid').on('click', '#'+identNr, function(){                                     
-            if(tmp == undefined){
-                tmp = omnivore.gpx(gpxAdresse).addTo(mymap); // GPX in Map anzeigen
+            if(tmpGPXAdresse == undefined){
+                tmpGPXAdresse = omnivore.gpx(gpxAdresse).addTo(mymap); // GPX in Map anzeigen
                 //console.log("if zweig");
                 //mymap.setZoom(12);
             }
             else{
-                mymap.removeLayer(tmp); //GPX aus MAP entfernen
-                tmp = omnivore.gpx(gpxAdresse).addTo(mymap); // GPX in Map anzeigen
+                mymap.removeLayer(tmpGPXAdresse); //GPX aus MAP entfernen
+                tmpGPXAdresse = omnivore.gpx(gpxAdresse).addTo(mymap); // GPX in Map anzeigen
                 //console.log("else zweig");    
                 //mymap.setZoom(12);
             }
@@ -65,16 +98,17 @@
             
 </script>
 <?php   
-
-    function datensaetzeAusgeben($tmpVerbindung, $tmpDatensatz){
-        
-            $tmpQuery = mysqli_query($tmpVerbindung, $tmpDatensatz);
+    // FUNKTION Datensätze ausgeben je nach Button Klick
+    function datensaetzeAusgeben($tmpVerbindung, $tmpDatensatz, $punkte){
             
+            // Datenbankabfrage ausführen
+            $tmpQuery = mysqli_query($tmpVerbindung, $tmpDatensatz);
+            // Prüfen ob Datenbankabfrage gültig war
             if(!$tmpQuery){
                 die('Ungültige Abfrage: ' . mysqli_error());
             }
         
-        
+            // Datensätze zusammenfügen als Marker -> Popup -> GPX-Button 
             while ($zeile = mysqli_fetch_array($tmpQuery, MYSQLI_ASSOC)){
                 $tmpBeschreibung = str_replace(array("\r\n","\n","\r"),"",$zeile['beschreibung']); 
                 echo "
@@ -106,7 +140,8 @@
 
 
                     // Marker zum Layer hinzufügen                                
-                    markers.addLayer(marker); 
+                    //markers.addLayer(marker); 
+                    $punkte.addLayer(marker); 
 
                     // Popup generieren mit HTML 
                     marker.bindPopup(popupText);      
@@ -115,6 +150,7 @@
                     gpxInMapAnzeigen(tmpGPX, id);
                 ";
             }
+            // Datensätze ausgeben
             mysqli_free_result($tmpQuery);
         }
 ?>

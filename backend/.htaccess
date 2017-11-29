@@ -1,4 +1,4 @@
 AuthType Basic
 AuthName "Woidtrailmap Backend"
-AuthUserFile /kunden/289129_94227/LBR-Server-S1/LBR02179/103172/werbeagentur-aschenbrenner.de/woidtrailnetz/backend/.htpasswd
+AuthUserFile /var/www/vhosts/hosting102511.af9b8.netcup.net/httpdocs/woidtrailmap_entwicklung/backend/.htpasswd
 Require valid-user

@@ -17,7 +17,7 @@
         <script src="js/leaflet.markercluster-src.js"></script>
         <!-- Omnivore GPX einbinden 
         <script src='//api.tiles.mapbox.com/mapbox.js/plugins/leaflet-omnivore/v0.3.1/leaflet-omnivore.min.js'></script> -->
-        <script src="http://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-omnivore/v0.3.1/leaflet-omnivore.min.js"></script>
+        <script src="js/leaflet-omnivore.min.js"></script>
         <!-- Jquery -->
         <script src="js/jquery-3.2.1.min.js"></script>
         <!-- Fullscreen Map -->

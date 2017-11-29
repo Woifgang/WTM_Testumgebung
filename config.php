@@ -4,4 +4,5 @@
     const DB_PASSWORT = "mMf4%o57";
     const DB_DATENBANK = "k64700_woidtrailmap_entwicklung";
     
+    
 ?>

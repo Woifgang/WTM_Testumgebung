@@ -37,7 +37,10 @@
         markers.clearLayers();
         markersHotspots.clearLayers();
         markersTouren.clearLayers();
-        mymap.removeLayer(tmpGPXAdresse); //GPX aus MAP entfernen
+        if (tmpGPXAdresse != undefined){
+            mymap.removeLayer(tmpGPXAdresse); //GPX aus MAP entfernen
+        }
+       
         
         <?php 
             $markersAlle = 'markers';
@@ -52,7 +55,9 @@
         markers.clearLayers();
         markersHotspots.clearLayers();
         markersTouren.clearLayers();
-        mymap.removeLayer(tmpGPXAdresse); //GPX aus MAP entfernen
+        if (tmpGPXAdresse != undefined){
+            mymap.removeLayer(tmpGPXAdresse); //GPX aus MAP entfernen
+        }
         
         <?php 
             $markersHotspots = 'markersHotspots';
@@ -66,7 +71,9 @@
         markers.clearLayers();
         markersHotspots.clearLayers();
         markersTouren.clearLayers();
-        mymap.removeLayer(tmpGPXAdresse); //GPX aus MAP entfernen
+        if (tmpGPXAdresse != undefined){
+            mymap.removeLayer(tmpGPXAdresse); //GPX aus MAP entfernen
+        }
 
         <?php 
             $markersTouren = 'markersTouren';

@@ -18,6 +18,10 @@
     // GPX Variable
     var tmpGPXAdresse; 
 
+    /************************************************************************
+    ***************** B U T T O N S  V E R A R B E I T E N ******************
+    ************************************************************************/
+    
     // Wenn Seite geladen lade alle Datenbankeinträge von MYSQL
     $( document ).ready(function() {
         markers.clearLayers();
@@ -83,7 +87,10 @@
         mymap.addLayer(markersTouren); 
     })
  
-
+    /************************************************************************
+    ************* A L L G E M E I N E  F U N K T I O N E N ******************
+    ************************************************************************/
+    
     // FUNKTION GPX in Karte via Button Anzeigen
     function gpxInMapAnzeigen(gpxAdresse, identNr){
         $('#mapid').on('click', '#'+identNr, function(){                                     
@@ -102,11 +109,17 @@
                     
         })
     }
-    
+    // Fancy Box Öffnen 
     function fancyBoxOeffnen(inhalt, ident){
         $('#mapid').on('click', '#fancyBox'+ident, function(){   
             $.fancybox.open('<div class="fancyBoxMessage">' + inhalt + '</div>');
         });
+    }
+    
+
+    // Karte auf Marker Zentrieren
+    function karteAufMarkerZentrieren(e) {
+        mymap.setView(e.target.getLatLng(),15);
     }
                 
 </script>
@@ -171,6 +184,8 @@
                     // GPX via Button
                     gpxInMapAnzeigen(tmpGPX, id);
                     
+                    
+                    // Fancybox öffnen -> Komplette beschreibung / Bilder können angezeigt werden
                     fancyBoxOeffnen(lightBoxInhalt, id);
                 
                 ";

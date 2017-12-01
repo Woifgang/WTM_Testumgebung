@@ -12,6 +12,7 @@ var mymap = new L.Map('mapid', {
     layers: [base],
     center: new L.LatLng(49.197, 13.050),
     zoom: 10,
+    maxZoom: 15,
     fullscreenControl: true,
     fullscreenControlOptions: { // optional
         title:"Fullscreen",
@@ -26,6 +27,9 @@ mymap.on('enterFullscreen', function(){
 mymap.on('exitFullscreen', function(){
     if(window.console) window.console.log('exitFullscreen');
 });
+
+
+
 
 
 

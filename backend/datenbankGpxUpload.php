@@ -10,11 +10,12 @@
                    integrity="sha512-lInM/apFSqyy1o6s89K4iQUKg6ppXEgsVxT35HbzUupEVRh2Eu9Wdl4tHj7dZO0s1uvplcYGmt3498TtHq+log=="
                    crossorigin=""></script>     
         <!-- Omniore GPX einbinden -->
-        <script src="http://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-omnivore/v0.3.1/leaflet-omnivore.min.js"></script>
+        <script src="js/leaflet-omnivore.min.js"></script>
         <!-- Jquery -->
         <script src="js/jquery-3.2.1.min.js"></script>
         
-        <script src="https://cloud.tinymce.com/stable/tinymce.min.js"></script>
+        
+        <script src="js/tinymce/tinymce.min.js"></script>
         <script>tinymce.init({ selector:'textarea' });</script>
         <style>
             #mapid{

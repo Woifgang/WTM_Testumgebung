@@ -31,6 +31,10 @@
         <link href="https://fonts.googleapis.com/css?family=Saira+Condensed|Sigmar+One" rel="stylesheet">
         <!-- Woidtrailmap CSS -->
         <link rel="stylesheet" href="css/woidtrailmap.css" />
+        
+        <!-- Fancybox -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js"></script>
     </head>
     <body>
         <div id="wrapper">

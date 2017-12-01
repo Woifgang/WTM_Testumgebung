@@ -102,7 +102,13 @@
                     
         })
     }
-            
+    
+    function fancyBoxOeffnen(inhalt, ident){
+        $('#mapid').on('click', '#fancyBox'+ident, function(){   
+            $.fancybox.open('<div class="fancyBoxMessage">' + inhalt + '</div>');
+        });
+    }
+                
 </script>
 <?php   
     // FUNKTION Datensätze ausgeben je nach Button Klick
@@ -118,6 +124,7 @@
             // Datensätze zusammenfügen als Marker -> Popup -> GPX-Button 
             while ($zeile = mysqli_fetch_array($tmpQuery, MYSQLI_ASSOC)){
                 $tmpBeschreibung = str_replace(array("\r\n","\n","\r"),"",$zeile['beschreibung']); 
+                $tmpBeschreibungKurz =  implode(' ', array_slice(explode(' ', $tmpBeschreibung, 50), 0, -1));  
                 echo "
                     var id = \"".$zeile['id']."\";
                     var lon = \"".$zeile['laengengrad']."\";
@@ -127,6 +134,7 @@
                     var hoehenmeter = \"".$zeile['hoehenmeter']."\";
                     var tiefenmeter = \"".$zeile['tiefenmeter']."\";
                     var beschreibung = \"".$tmpBeschreibung."\";
+                    var beschreibungKurz = \"".$tmpBeschreibungKurz."\";
                     var gpxPfad = \"".$zeile['pfadGPX']."\";
                     //alert(id);
                     // Cluster-Marker erzeugen erzeugen
@@ -136,15 +144,22 @@
                     var tmpGPX = './gpx/'+gpxPfad;
 
                     //Popuptext erzeugen
-                    var tmpUeberschrift = '<h1>' + ueberschrift + '</h1>';
-                    var tmpBeschreibung = '<p>' + beschreibung + '</p>';
+                    var tmpUeberschrift = '<h4>' + ueberschrift + '</h4>';
                     var tmpKilometer = '<li>Kilometer : ' + kilometer + '</li>';
                     var tmpHoehenmeter = '<li>Höhenmeter : ' + hoehenmeter + '</li>';
                     var tmpTiefenmeter = '<li>Tiefenmeter : ' + tiefenmeter + '</li>';
+                    var tmpBeschreibungKurz = '<p>' + beschreibungKurz ;
+                    var tmpBeschreibungLang = '<p>' + beschreibung + '</p>' ;
+                    var tmpWeiterlesenPunkte ='... '; 
+                    var tmpWeiterlesen ='<a href=\"#\" id=\"fancyBox' + id + '\">weiterlesen</a></p>'; 
                     var tmpButton = '<button type=\"button\" class=\"btn btn-success\" id=\"' + id + '\">Track  anzeigen</button>';
-
-                    var popupText = tmpUeberschrift + tmpKilometer + tmpHoehenmeter + tmpTiefenmeter + tmpBeschreibung + tmpButton;
-
+                    
+                    // Popup erzeugen
+                    var popupText = tmpUeberschrift + tmpKilometer + tmpHoehenmeter + tmpTiefenmeter + tmpBeschreibungKurz + tmpWeiterlesenPunkte + tmpWeiterlesen + tmpButton; 
+                    
+                    // Lightbox erzeugen
+                    var lightBoxInhalt = tmpUeberschrift + tmpKilometer + tmpHoehenmeter + tmpTiefenmeter + tmpBeschreibungLang;
+                    
 
                     // Marker zum Layer hinzufügen                                
                     //markers.addLayer(marker); 
@@ -155,7 +170,11 @@
 
                     // GPX via Button
                     gpxInMapAnzeigen(tmpGPX, id);
+                    
+                    fancyBoxOeffnen(lightBoxInhalt, id);
+                
                 ";
+               
             }
             // Datensätze ausgeben
             mysqli_free_result($tmpQuery);

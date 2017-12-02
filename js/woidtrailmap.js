@@ -12,7 +12,7 @@ var mymap = new L.Map('mapid', {
     layers: [base],
     center: new L.LatLng(49.197, 13.050),
     zoom: 10,
-    maxZoom: 15,
+    //maxZoom: 18,
     fullscreenControl: true,
     fullscreenControlOptions: { // optional
         title:"Fullscreen",

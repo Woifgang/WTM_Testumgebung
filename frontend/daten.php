@@ -95,13 +95,28 @@
     function gpxInMapAnzeigen(gpxAdresse, identNr){
         $('#mapid').on('click', '#'+identNr, function(){                                     
             if(tmpGPXAdresse == undefined){
-                tmpGPXAdresse = omnivore.gpx(gpxAdresse).addTo(mymap); // GPX in Map anzeigen
+                tmpGPXAdresse = omnivore.gpx(gpxAdresse)
+                    .on('ready', function(){
+                        mymap.fitBounds(tmpGPXAdresse.getBounds());
+                        tmpGPXAdresse.eachLayer(function(layer){
+                            
+                            // Hier die FANCYBOX anstatt bindPopup
+                            layer.bindPopup(layer.feature.properties.name);
+                        });
+                }).addTo(mymap); // GPX in Map anzeigen
                 //console.log("if zweig");
                 //mymap.setZoom(12);
             }
             else{
                 mymap.removeLayer(tmpGPXAdresse); //GPX aus MAP entfernen
-                tmpGPXAdresse = omnivore.gpx(gpxAdresse).addTo(mymap); // GPX in Map anzeigen
+                tmpGPXAdresse = omnivore.gpx(gpxAdresse)
+                    .on('ready', function(){
+                        mymap.fitBounds(tmpGPXAdresse.getBounds());
+                        tmpGPXAdresse.eachLayer(function(layer){
+                            // Hier die FANCYBOX anstatt bindPopup
+                            layer.bindPopup(layer.feature.properties.name);
+                        });
+                }).addTo(mymap); // GPX in Map anzeigen
                 //console.log("else zweig");    
                 //mymap.setZoom(12);
             }

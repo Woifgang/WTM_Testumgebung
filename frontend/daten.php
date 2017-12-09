@@ -92,29 +92,90 @@
     ************************************************************************/
     
     // FUNKTION GPX in Karte via Button Anzeigen
-    function gpxInMapAnzeigen(gpxAdresse, identNr){
+    function gpxInMapAnzeigen(gpxAdresse, identNr,popUpTextOhneButton){
+        
+     /******* T E S T S ****************************************************
+    */
+    
+    function highlightFeature(e) {
+        var layer = e.target;
+
+        layer.setStyle({
+            weight: 5,
+            color: '#666',
+            dashArray: '',
+            fillOpacity: 0.7
+        });
+
+        if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+            layer.bringToFront();
+        }
+    }
+    
+    function resetHighlight(e) {
+        customLayer.resetStyle(e.target);
+    }
+    /******* T E S T S ****************************************************
+    */
+        
+        // Custom layer
+        var customLayer = L.geoJson(null, {
+            // http://leafletjs.com/reference.html#geojson-style
+            
+            
+            
+            style: function(feature) {
+                return {
+                    color: '#f00'
+                };
+            }
+        });
+        
         $('#mapid').on('click', '#'+identNr, function(){                                     
             if(tmpGPXAdresse == undefined){
-                tmpGPXAdresse = omnivore.gpx(gpxAdresse)
+                // GPX in MAP anzeigen mit Funktionen wenn Track geladen wurde
+                tmpGPXAdresse = omnivore.gpx(gpxAdresse, null, customLayer)
                     .on('ready', function(){
+                    
+                        /*TETS*/
+                        tmpGPXAdresse.on({
+                            mouseover: highlightFeature,
+                            mouseout: resetHighlight
+                        });
+
+                        /*TETS*/
+                    
                         mymap.fitBounds(tmpGPXAdresse.getBounds());
                         tmpGPXAdresse.eachLayer(function(layer){
                             
                             // Hier die FANCYBOX anstatt bindPopup
-                            layer.bindPopup(layer.feature.properties.name);
+                            //layer.bindPopup(layer.feature.properties.name);
+                            layer.bindPopup(popUpTextOhneButton);                            
                         });
                 }).addTo(mymap); // GPX in Map anzeigen
                 //console.log("if zweig");
                 //mymap.setZoom(12);
             }
             else{
-                mymap.removeLayer(tmpGPXAdresse); //GPX aus MAP entfernen
-                tmpGPXAdresse = omnivore.gpx(gpxAdresse)
+                //GPX aus MAP entfernen
+                mymap.removeLayer(tmpGPXAdresse); 
+                // GPX in MAP anzeigen mit Funktionen wenn Track geladen wurde
+                tmpGPXAdresse = omnivore.gpx(gpxAdresse, null, customLayer)
                     .on('ready', function(){
+                    
+                    /*TETS*/
+                        tmpGPXAdresse.on({
+                            mouseover: highlightFeature,
+                            mouseout: resetHighlight
+                        });
+
+                        /*TETS*/
+                    
                         mymap.fitBounds(tmpGPXAdresse.getBounds());
                         tmpGPXAdresse.eachLayer(function(layer){
-                            // Hier die FANCYBOX anstatt bindPopup
-                            layer.bindPopup(layer.feature.properties.name);
+                            // Popup ohne Track Button
+                            layer.bindPopup(popUpTextOhneButton)
+                            
                         });
                 }).addTo(mymap); // GPX in Map anzeigen
                 //console.log("else zweig");    
@@ -136,6 +197,8 @@
     function karteAufMarkerZentrieren(e) {
         mymap.setView(e.target.getLatLng(),15);
     }
+    
+
                 
 </script>
 <?php   
@@ -185,6 +248,9 @@
                     // Popup erzeugen
                     var popupText = tmpUeberschrift + tmpKilometer + tmpHoehenmeter + tmpTiefenmeter + tmpBeschreibungKurz + tmpWeiterlesenPunkte + tmpWeiterlesen + tmpButton; 
                     
+                    // Popup erzeugen wenn auf Track geclickt wird
+                    var popupTextOhneButton = tmpUeberschrift + tmpKilometer + tmpHoehenmeter + tmpTiefenmeter + tmpBeschreibungKurz + tmpWeiterlesenPunkte + tmpWeiterlesen;
+                    
                     // Lightbox erzeugen
                     var lightBoxInhalt = tmpUeberschrift + tmpKilometer + tmpHoehenmeter + tmpTiefenmeter + tmpBeschreibungLang;
                     
@@ -197,7 +263,7 @@
                     marker.bindPopup(popupText);      
 
                     // GPX via Button
-                    gpxInMapAnzeigen(tmpGPX, id);
+                    gpxInMapAnzeigen(tmpGPX, id, popupTextOhneButton);
                     
                     
                     // Fancybox öffnen -> Komplette beschreibung / Bilder können angezeigt werden

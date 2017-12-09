@@ -94,97 +94,58 @@
     // FUNKTION GPX in Karte via Button Anzeigen
     function gpxInMapAnzeigen(gpxAdresse, identNr,popUpTextOhneButton){
         
-     /******* T E S T S ****************************************************
-    */
-    
-    function highlightFeature(e) {
-        var layer = e.target;
-
-        layer.setStyle({
-            weight: 5,
-            color: '#666',
-            dashArray: '',
-            fillOpacity: 0.7
-        });
-
-        if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
-            layer.bringToFront();
-        }
-    }
-    
-    function resetHighlight(e) {
-        customLayer.resetStyle(e.target);
-    }
-    /******* T E S T S ****************************************************
-    */
-        
-        // Custom layer
+        // Definierter Layer für GPX-Track
         var customLayer = L.geoJson(null, {
-            // http://leafletjs.com/reference.html#geojson-style
-            
-            
-            
             style: function(feature) {
                 return {
                     color: '#f00'
                 };
+            },
+            onEachFeature: function (feature, layer) {
+                layer.on('mouseover', function () { // Bei Mouseover wird der GPX-Track dick und grün
+                    this.setStyle({
+                        color: '#65FF4F',
+                        weight: 13
+                    });
+                });
+                layer.on('mouseout', function () { // Bei Mouseout wieder der GPX-Track normal und Rot 
+                    customLayer.resetStyle(this);
+                });
             }
+
         });
         
-        $('#mapid').on('click', '#'+identNr, function(){                                     
+        // Auf klicken des Buttons aktionen ausführen
+        $('#mapid').on('click', '#'+identNr, function(){  
+            // Abfrage ob im "tmpGPXAdresse" String was drin steht
             if(tmpGPXAdresse == undefined){
                 // GPX in MAP anzeigen mit Funktionen wenn Track geladen wurde
                 tmpGPXAdresse = omnivore.gpx(gpxAdresse, null, customLayer)
-                    .on('ready', function(){
-                    
-                        /*TETS*/
-                        tmpGPXAdresse.on({
-                            mouseover: highlightFeature,
-                            mouseout: resetHighlight
-                        });
-
-                        /*TETS*/
-                    
+                    .on('ready', function(){                    
                         mymap.fitBounds(tmpGPXAdresse.getBounds());
                         tmpGPXAdresse.eachLayer(function(layer){
-                            
-                            // Hier die FANCYBOX anstatt bindPopup
-                            //layer.bindPopup(layer.feature.properties.name);
-                            layer.bindPopup(popUpTextOhneButton);                            
+                            layer.bindPopup(popUpTextOhneButton); // Popup ohne Track Button                    
                         });
                 }).addTo(mymap); // GPX in Map anzeigen
                 //console.log("if zweig");
-                //mymap.setZoom(12);
             }
             else{
                 //GPX aus MAP entfernen
                 mymap.removeLayer(tmpGPXAdresse); 
                 // GPX in MAP anzeigen mit Funktionen wenn Track geladen wurde
                 tmpGPXAdresse = omnivore.gpx(gpxAdresse, null, customLayer)
-                    .on('ready', function(){
-                    
-                    /*TETS*/
-                        tmpGPXAdresse.on({
-                            mouseover: highlightFeature,
-                            mouseout: resetHighlight
-                        });
-
-                        /*TETS*/
-                    
+                    .on('ready', function(){                    
                         mymap.fitBounds(tmpGPXAdresse.getBounds());
-                        tmpGPXAdresse.eachLayer(function(layer){
-                            // Popup ohne Track Button
-                            layer.bindPopup(popUpTextOhneButton)
-                            
+                        tmpGPXAdresse.eachLayer(function(layer){                            
+                            layer.bindPopup(popUpTextOhneButton); // Popup ohne Track Button                            
                         });
                 }).addTo(mymap); // GPX in Map anzeigen
-                //console.log("else zweig");    
-                //mymap.setZoom(12);
+                //console.log("else zweig");   
             }
             mymap.setZoom(12);
-                    
         })
     }
+    
     // Fancy Box Öffnen 
     function fancyBoxOeffnen(inhalt, ident){
         $('#mapid').on('click', '#fancyBox'+ident, function(){   
@@ -197,8 +158,6 @@
     function karteAufMarkerZentrieren(e) {
         mymap.setView(e.target.getLatLng(),15);
     }
-    
-
                 
 </script>
 <?php   

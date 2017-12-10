@@ -60,10 +60,10 @@
                                       GPX
                                   </a>
                                      <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                        <a id="alleGPX" class="dropdown-item" href="#">Alle anzeigen</a>
+                                        <a id="alleGPX" class="dropdown-item" href="javascript:;">Alle anzeigen</a>
                                         <div class="dropdown-divider"></div>
-                                        <a id="hotspotsGPX" class="dropdown-item" href="#">Hotspots</a>
-                                        <a id="tourGPX" class="dropdown-item" href="#">Touren</a>
+                                        <a id="hotspotsGPX" class="dropdown-item" href="javascript:;">Hotspots</a>
+                                        <a id="tourGPX" class="dropdown-item" href="javascript:;">Touren</a>
                                     </div>
                                 </li>
                               <li class="nav-item">

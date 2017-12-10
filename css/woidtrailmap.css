@@ -45,8 +45,10 @@ a:hover{
     z-index: 300;
 }
 
-#titel{
-
+.fancyBoxDivIdClass{
+    width: 100%;
+    min-height: 500px;
+    height: 100%;
 }
 
 #baumMittel{

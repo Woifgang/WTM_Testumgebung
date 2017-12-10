@@ -148,12 +148,9 @@
     
     // Fancy Box Öffnen 
     function fancyBoxOeffnen(inhalt, ident){
-        //$('#mapid').on('click', '#fancyBox'+ident, function(){   
-        //wieder selbes problem... evtl hier ein div erstellen mit der ident 
-        $('#wrapper').on('click', '#fancyBox'+ident, function(){   
-        //var tmp = '#fancyBox'+ident;
-        //$(tmp).on('click', function() {
-            $.fancybox.open('<div class="fancyBoxMessage">' + inhalt + '</div>');
+        
+        $('#mapid').on('click', '#fancyBox'+ident, function(){   
+            $.fancybox.open('<div class="fancyBoxMessage'+ident+'">' + inhalt + '</div>');
         });
     }
     
@@ -205,7 +202,7 @@
                     var tmpBeschreibungKurz = '<p>' + beschreibungKurz ;
                     var tmpBeschreibungLang = '<p>' + beschreibung + '</p>' ;
                     var tmpWeiterlesenPunkte ='... '; 
-                    var tmpWeiterlesen ='<a href=\"javascript:;\" id=\"fancyBox' + id + '\">weiterlesen</a></p>'; 
+                    var tmpWeiterlesen ='<a id=\"fancyBox' + id + '\" href=\"javascript:;\">weiterlesen</a></p>'; 
                     var tmpButton = '<button type=\"button\" class=\"btn btn-success\" id=\"' + id + '\">Track  anzeigen</button>';
                     
                     // Popup erzeugen

@@ -150,7 +150,13 @@
     function fancyBoxOeffnen(inhalt, ident){
         
         $('#mapid').on('click', '#fancyBox'+ident, function(){   
-            $.fancybox.open('<div class="fancyBoxMessage'+ident+'">' + inhalt + '</div>');
+           if ($.fancybox.isOpen == true){
+               $.fancybox.close();
+           }
+            else{
+                $.fancybox.open('<div class="fancyBoxMessage'+ident+'">' + inhalt + '</div>');
+            }
+            
         });
     }
     
@@ -164,13 +170,15 @@
 <?php   
     // FUNKTION Datensätze ausgeben je nach Button Klick
     function datensaetzeAusgeben($tmpVerbindung, $tmpDatensatz, $punkte){
-            
+        
             // Datenbankabfrage ausführen
             $tmpQuery = mysqli_query($tmpVerbindung, $tmpDatensatz);
             // Prüfen ob Datenbankabfrage gültig war
             if(!$tmpQuery){
                 die('Ungültige Abfrage: ' . mysqli_error());
             }
+            
+            
         
             // Datensätze zusammenfügen als Marker -> Popup -> GPX-Button 
             while ($zeile = mysqli_fetch_array($tmpQuery, MYSQLI_ASSOC)){

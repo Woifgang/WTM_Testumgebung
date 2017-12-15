@@ -147,6 +147,7 @@
     }
     
     // Fancy Box Öffnen 
+    /*
     function fancyBoxOeffnen(inhalt, ident){
         
         $('#mapid').on('click', '#fancyBox'+ident, function(){   
@@ -159,7 +160,21 @@
             
         });
     }
+    */
     
+  $('#fancybox').fancybox({
+    'autoScale': true,
+    'transitionIn': 'elastic',
+    'transitionOut': 'elastic',
+    'speedIn': 500,
+    'speedOut': 300,
+    'autoDimensions': true,
+    'centerOnScroll': true,
+});
+    
+    function openBox(inhalt) {
+        $.fancybox.open('<div class="fancyBoxMessage">' + inhalt + '</div>');
+    }
 
     // Karte auf Marker Zentrieren
     function karteAufMarkerZentrieren(e) {
@@ -210,8 +225,22 @@
                     var tmpBeschreibungKurz = '<p>' + beschreibungKurz ;
                     var tmpBeschreibungLang = '<p>' + beschreibung + '</p>' ;
                     var tmpWeiterlesenPunkte ='... '; 
-                    var tmpWeiterlesen ='<a id=\"fancyBox' + id + '\" href=\"javascript:;\">weiterlesen</a></p>'; 
+                    //var tmpWeiterlesen ='<a id=\"fancyBox' + id + '\" href=\"javascript:;\">weiterlesen</a></p>'; 
+                    
+                    
+                    
+                    var tmpWeiterlesen ='<a id=\"fancyBox\" href=\"#content'+id+'\">weiterlesen</a></p>'; 
+                    
+                    
+                    
                     var tmpButton = '<button type=\"button\" class=\"btn btn-success\" id=\"' + id + '\">Track  anzeigen</button>';
+                    
+                    
+                    // Lightboxinhalt erzeugen
+                    var lightBoxInhalt = tmpUeberschrift + tmpKilometer + tmpHoehenmeter + tmpTiefenmeter + tmpBeschreibungLang;
+                    
+                      
+                     //var tmpWeiterlesen = '<a href=\"#\" onclick=\"openBox(beschreibungLang)\">weiterlesen</a>';
                     
                     // Popup erzeugen
                     var popupText = tmpUeberschrift + tmpKilometer + tmpHoehenmeter + tmpTiefenmeter + tmpBeschreibungKurz + tmpWeiterlesenPunkte + tmpWeiterlesen + tmpButton; 
@@ -219,8 +248,6 @@
                     // Popup erzeugen wenn auf Track geclickt wird
                     var popupTextOhneButton = tmpUeberschrift + tmpKilometer + tmpHoehenmeter + tmpTiefenmeter + tmpBeschreibungKurz + tmpWeiterlesenPunkte + tmpWeiterlesen;
                     
-                    // Lightbox erzeugen
-                    var lightBoxInhalt = tmpUeberschrift + tmpKilometer + tmpHoehenmeter + tmpTiefenmeter + tmpBeschreibungLang;
                     
 
                     // Marker zum Layer hinzufügen                                
@@ -235,7 +262,9 @@
                     
                     
                     // Fancybox öffnen -> Komplette beschreibung / Bilder können angezeigt werden
-                    fancyBoxOeffnen(lightBoxInhalt, id);
+                    //fancyBoxOeffnen(lightBoxInhalt, id);
+                    
+                    '<div id=\"content'+id+'\" style=\"display: none;\">lightBoxInhalt</div>';
                 
                 ";
                

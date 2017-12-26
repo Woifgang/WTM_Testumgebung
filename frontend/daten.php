@@ -147,35 +147,16 @@
     }
     
     // Fancy Box Öffnen 
-    /*
-    function fancyBoxOeffnen(inhalt, ident){
-        
+    function fancyBoxOeffnen(inhalt, ident){        
         $('#mapid').on('click', '#fancyBox'+ident, function(){   
-           if ($.fancybox.isOpen == true){
-               $.fancybox.close();
-           }
-            else{
-                $.fancybox.open('<div class="fancyBoxMessage'+ident+'">' + inhalt + '</div>');
-            }
-            
+                $.fancybox.open('<div class="fancyBoxMessage'+ident+'">' + inhalt + '</div>');   
         });
     }
-    */
     
-  $('#fancybox').fancybox({
-    'autoScale': true,
-    'transitionIn': 'elastic',
-    'transitionOut': 'elastic',
-    'speedIn': 500,
-    'speedOut': 300,
-    'autoDimensions': true,
-    'centerOnScroll': true,
-});
     
-    function openBox(inhalt) {
-        $.fancybox.open('<div class="fancyBoxMessage">' + inhalt + '</div>');
-    }
-
+    
+    
+    
     // Karte auf Marker Zentrieren
     function karteAufMarkerZentrieren(e) {
         mymap.setView(e.target.getLatLng(),15);
@@ -225,12 +206,7 @@
                     var tmpBeschreibungKurz = '<p>' + beschreibungKurz ;
                     var tmpBeschreibungLang = '<p>' + beschreibung + '</p>' ;
                     var tmpWeiterlesenPunkte ='... '; 
-                    //var tmpWeiterlesen ='<a id=\"fancyBox' + id + '\" href=\"javascript:;\">weiterlesen</a></p>'; 
-                    
-                    
-                    
-                    var tmpWeiterlesen ='<a id=\"fancyBox\" href=\"#content'+id+'\">weiterlesen</a></p>'; 
-                    
+                    var tmpWeiterlesen ='<a id=\"fancyBox' + id + '\" href=\"#\">weiterlesen</a></p>'; 
                     
                     
                     var tmpButton = '<button type=\"button\" class=\"btn btn-success\" id=\"' + id + '\">Track  anzeigen</button>';
@@ -262,9 +238,8 @@
                     
                     
                     // Fancybox öffnen -> Komplette beschreibung / Bilder können angezeigt werden
-                    //fancyBoxOeffnen(lightBoxInhalt, id);
+                    fancyBoxOeffnen(lightBoxInhalt, id);
                     
-                    '<div id=\"content'+id+'\" style=\"display: none;\">lightBoxInhalt</div>';
                 
                 ";
                

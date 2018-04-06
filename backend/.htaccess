@@ -1,4 +1,0 @@
-AuthType Basic
-AuthName "Woidtrailmap Backend"
-AuthUserFile /var/www/vhosts/hosting102511.af9b8.netcup.net/httpdocs/woidtrailmap_entwicklung/backend/.htpasswd
-Require valid-user
